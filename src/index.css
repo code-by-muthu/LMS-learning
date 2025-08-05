@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+:root {
+background-attachment: 
+fixed ;
+background-color: var(--main-bg);
+}

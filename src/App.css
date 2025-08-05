@@ -1,0 +1,65 @@
+:root {
+  /* Primary Neon Colors */
+  --electric-blue: #00FFFF;
+  --neon-pink: #FF00FF;
+  --neon-purple: #9B59FF;
+  --acid-green: #39FF14;
+  --neon-red: #FF3131;
+  --hot-orange: #FF6F00;
+  /* Support / Accent Colors */
+  --soft-violet: #8A2BE2;
+  --cyber-yellow: #FFFF00;
+  --aqua-glow: #00FFE5;
+  --white-smoke: #F5F5F5;
+  --dark-charcoal: #1A1A1A;
+  /* Glow effects */
+  --blue-glow: rgba(0,255,255,0.4);
+  --pink-glow: rgba(255,0,255,0.4);
+  --green-glow: rgba(57,255,20,0.4);
+  /* Background */
+  --main-bg: #0F0F1A;
+}
+@keyframes float {
+  0% { transform: translateY(0) scale(1); opacity: 0.5; }
+  50% { transform: translateY(-20px) scale(1.2); opacity: 0.8; }
+  100% { transform: translateY(0) scale(1); opacity: 0.5; }
+}
+.animate-float { animation: float 6s infinite ease-in-out; }
+.animation-delay-1000 { animation-delay: 1s; }
+.animation-delay-2000 { animation-delay: 2s; }
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
