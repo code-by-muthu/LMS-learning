@@ -1,0 +1,60 @@
+
+   [
+     {
+       "id": "1",
+       "title": "JavaScript Mastery",
+       "level": "Beginner to Advanced",
+       "img": "https://via.placeholder.com/300x200",
+       "progress": 60
+     },
+     {
+       "id": "2",
+       "title": "Python for Data Science",
+       "level": "Intermediate",
+       "img": "https://via.placeholder.com/300x200",
+       "progress": 40
+     },
+     {
+       "id": "3",
+       "title": "Web Development Bootcamp",
+       "level": "All Levels",
+       "img": "https://via.placeholder.com/300x200",
+       "progress": 80
+     },
+     {
+       "id": "4",
+       "title": "React Pro",
+       "level": "Advanced",
+       "img": "https://via.placeholder.com/300x200",
+       "progress": 20
+     },
+     {
+       "id": "5",
+       "title": "Node.js Essentials",
+       "level": "Intermediate",
+       "img": "https://via.placeholder.com/300x200",
+       "progress": 50
+     },
+     {
+       "id": "6",
+       "title": "AI & Machine Learning",
+       "level": "Advanced",
+       "img": "https://via.placeholder.com/300x200",
+       "progress": 30
+     },
+     {
+       "id": "7",
+       "title": "Cloud Computing Basics",
+       "level": "Beginner",
+       "img": "https://via.placeholder.com/300x200",
+       "progress": 70
+     },
+     {
+       "id": "8",
+       "title": "Cybersecurity Fundamentals",
+       "level": "All Levels",
+       "img": "https://via.placeholder.com/300x200",
+       "progress": 45
+     }
+   ]
+   
