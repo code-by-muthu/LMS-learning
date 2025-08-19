@@ -30,7 +30,7 @@ const ErrorLearningSection = () => {
               </div>
               <div className="flex justify-center">
                 <Link
-                  to="/error-learning-course"
+                  to="/categories"
                   className="inline-block text-[var(--neon-pink)] font-semibold text-lg hover:text-[var(--aqua-glow)] hover:[text-shadow:0_0_12px_var(--pink-glow)] transition-all duration-300"
                 >
                   Explore Course

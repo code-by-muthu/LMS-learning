@@ -5,6 +5,8 @@ import Home from './pages/Home';
 import ProfilePage from './pages/ProfilePage';
 import SignInPage from './pages/SignInPage';
 import SignUpPage from './pages/SignUpPage';
+import ForgotPasswordPage from './pages/ForgotPasswordPage';
+import ChangePasswordPage from './pages/ChangePasswordPage';
 import CertificatePage from './pages/CertificatePage';
 import ReviewDetailsPage from './pages/ReviewDetailsPage';
 import AllCourses from './pages/AllCourses';
@@ -23,8 +25,11 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/profile" element={<ProfilePage />} />
             <Route path="/signin" element={<SignInPage />} />
             <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/change-password" element={<ChangePasswordPage />} />
             <Route path="/certificate/:id" element={<CertificatePage />} />
             <Route path="/review/:id" element={<ReviewDetailsPage />} />
             <Route path="/courses" element={<AllCourses />} />
