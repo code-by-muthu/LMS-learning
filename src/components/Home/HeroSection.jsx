@@ -23,13 +23,13 @@ const Hero = () => {
     }, []);
 
     return (
-        // The main section now has proper vertical padding and uses a max-width for content.
+        // Main section with full width and proper vertical padding
         <section className="bg-[var(--main-bg)] w-full py-8 flex flex-col items-center justify-center min-h-[60vh] xl:min-h-[40vh] relative">
-            {/* Main content container with responsive layout. Uses flex-col for mobile and flex-row for larger screens. */}
-            <div className="flex flex-col lg:flex-row items-center justify-between w-full max-w-7xl px-4 relative gap-8 lg:gap-16">
+            {/* Main content container with max-w-7xl to match Navbar, adjusted padding */}
+            <div className="flex flex-col lg:flex-row items-center justify-between w-full max-w-7xl px-2 sm:px-4 lg:px-4 relative gap-8 lg:gap-16">
                 
                 {/* Content Section (Order 1) */}
-                {/* This section now uses `items-center` and `text-center` by default and overrides to `lg:items-start` and `lg:text-left` on large screens. */}
+                {/* Centered on small screens, left-aligned on large screens */}
                 <div className="order-1 flex-none flex flex-col items-center text-center space-y-4 sm:space-y-5 max-w-full lg:max-w-xl z-10 lg:text-left lg:items-start">
                     <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold leading-tight tracking-tight animate-fade-in-up">
                         <span className="text-[var(--electric-blue)] [text-shadow:0_0_20px_var(--blue-glow),_0_0_40px_var(--blue-glow-strong)]">Debug</span>
@@ -62,7 +62,7 @@ const Hero = () => {
                 </div>
 
                 {/* Image and Progress bar container (Order 2) */}
-                {/* This container uses flex to arrange the image and progress bar side-by-side on desktop. */}
+                {/* Flex container for image and progress bar, side-by-side on desktop */}
                 <div className="order-2 flex flex-col md:flex-row items-center justify-center gap-8 lg:gap-16">
                     {/* Image container */}
                     <div className="w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] md:w-[300px] md:h-[300px] lg:w-[280px] lg:h-[280px]">

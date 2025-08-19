@@ -10,17 +10,17 @@ const ErrorLearningSection = () => {
   ];
 
   return (
-    <section className="py-5 sm:py-3 lg:py-3  mb-5 bg-gradient-to-b from-[var(--dark-charcoal)] to-[var(--main-bg)] bg-cover bg-center relative overflow-hidden">
+    <section className="py-5 sm:py-3 lg:py-3 mb-5 bg-gradient-to-b from-[var(--dark-charcoal)] to-[var(--main-bg)] bg-cover bg-center relative overflow-hidden">
       <div className="relative z-10 container mx-auto px-4 sm:px-4 md:px-4 lg:px-6 max-w-5xl lg:max-w-6xl">
         <h2 className="text-4xl sm:text-5xl font-extrabold text-[var(--neon-pink)] [text-shadow:0_0_20px_var(--pink-glow)] text-center mb-8 sm:mb-9 lg:mb-12 animate-fade-in-up">
           Master Error Handling with Our Course
         </h2>
-        <div className="relative flex flex-col md:flex-row md:flex-nowrap justify-between items-stretch gap-4 sm:gap-4 md:gap-4 lg:gap-8">
+        <div className="relative flex flex-row md:flex-nowrap justify-start items-stretch gap-4 sm:gap-4 md:gap-4 lg:gap-8 overflow-x-auto no-scrollbar">
           <div className="absolute top-1/2 w-full h-1 bg-[var(--neon-purple)] shadow-[0_0_12px_var(--pink-glow)] hidden md:block"></div>
           {sampleErrors.map((error, index) => (
             <div
               key={index}
-              className="relative w-full sm:w-64 md:w-56 lg:w-72 bg-[var(--dark-charcoal)] p-5 rounded-xl border-2 border-[var(--aqua-glow)] shadow-[0_0_15px_var(--blue-glow)] hover:shadow-[0_0_30px_var(--blue-glow)] transition-all duration-300 transform hover:-translate-y-[2px] animate-fade-in-up min-h-[180px] flex flex-col justify-between text-center"
+              className="relative w-64 sm:w-64 md:w-56 lg:w-72 bg-[var(--dark-charcoal)] p-5 rounded-xl border-2 border-[var(--aqua-glow)] shadow-[0_0_15px_var(--blue-glow)] hover:shadow-[0_0_30px_var(--blue-glow)] transition-all duration-300 transform hover:-translate-y-[2px] animate-fade-in-up min-h-[180px] flex flex-col justify-between text-center flex-shrink-0"
               style={{ animationDelay: `${index * 200}ms` }}
             >
               <div>

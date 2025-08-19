@@ -32,7 +32,7 @@ const FeaturesSection = () => {
         <div className="absolute w-2 h-2 sm:w-3 sm:h-3 bg-[var(--neon-pink)] rounded-full top-6 sm:top-8 left-4 sm:left-6 animate-float"></div>
         <div className="absolute w-2 h-2 sm:w-3 sm:h-3 bg-[var(--electric-blue)] rounded-full bottom-6 sm:bottom-8 right-4 sm:right-6 animate-float animation-delay-1000"></div>
       </div>
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+      <div className="relative z-10 container mx-auto px-2 sm:px-4 lg:px-4 max-w-7xl">
         <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[var(--neon-pink)] [text-shadow:0_0_20px_var(--pink-glow)] text-center mb-6 sm:mb-8 animate-fade-in-up">
           Discover Your Learning Path
         </h2>
@@ -66,7 +66,7 @@ const FeaturesSection = () => {
               </div>
               <Link
                 to="/courses"
-                className="mt-3 sm:mt-4  flex  justify-center items-center px-2 py-1 sm:px-3 sm:py-2 text-xs sm:text-sm bg-[var(--neon-pink)] text-[var(--dark-charcoal)] rounded-full font-semibold hover:bg-[var(--aqua-glow)] hover:text-[var(--dark-charcoal)] hover:shadow-[0_0_15px_var(--blue-glow)] transition-all duration-300"
+                className="mt-3 sm:mt-4 flex justify-center items-center px-2 py-1 sm:px-3 sm:py-2 text-xs sm:text-sm bg-[var(--neon-pink)] text-[var(--dark-charcoal)] rounded-full font-semibold hover:bg-[var(--aqua-glow)] hover:text-[var(--dark-charcoal)] hover:shadow-[0_0_15px_var(--blue-glow)] transition-all duration-300"
               >
                 Learn More
               </Link>

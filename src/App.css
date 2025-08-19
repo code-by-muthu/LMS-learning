@@ -18,6 +18,9 @@
   --green-glow: rgba(57,255,20,0.4);
   /* Background */
   --main-bg: #0F0F1A;
+    --yellow-glow: rgba(255, 215, 0, 0.5);
+  --neon-purple: #8a2be2;
+  --soft-violet: #a64dff;
 }
 @keyframes float {
   0% { transform: translateY(0) scale(1); opacity: 0.5; }
@@ -62,4 +65,13 @@
 
 .read-the-docs {
   color: #888;
+}
+/* Hide scrollbar for all browsers */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }

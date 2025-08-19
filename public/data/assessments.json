@@ -1,0 +1,56 @@
+[
+  {
+    "id": "a1",
+    "title": "Chapter 1 Quiz",
+    "courseId": "1",
+    "instructions": "Answer all questions. You have 15 minutes.",
+    "questions": [
+      {
+        "question": "What is the correct way to declare a variable in JavaScript?",
+        "options": ["var x;", "variable x;", "v x;", "let x =;"],
+        "correctAnswer": "var x;"
+      },
+      {
+        "question": "Which data type is used for decimal numbers?",
+        "options": ["String", "Number", "Boolean", "Object"],
+        "correctAnswer": "Number"
+      }
+    ]
+  },
+  {
+    "id": "a2",
+    "title": "Chapter 2 Quiz",
+    "courseId": "1",
+    "instructions": "Complete the quiz on DOM manipulation. 10 minutes.",
+    "questions": [
+      {
+        "question": "How do you select an element by ID?",
+        "options": ["getElementByClass", "querySelector", "getElementById", "selectID"],
+        "correctAnswer": "getElementById"
+      },
+      {
+        "question": "What method adds an event listener?",
+        "options": ["addEvent", "onEvent", "addEventListener", "listenEvent"],
+        "correctAnswer": "addEventListener"
+      }
+    ]
+  },
+  {
+    "id": "a3",
+    "title": "JavaScript Basics Final Exam",
+    "courseId": "1",
+    "instructions": "Final exam for JavaScript Basics. 30 minutes.",
+    "questions": [
+      {
+        "question": "What is a closure in JavaScript?",
+        "options": ["A loop", "A function with preserved scope", "A variable", "An object"],
+        "correctAnswer": "A function with preserved scope"
+      },
+      {
+        "question": "What does a Promise resolve to?",
+        "options": ["Error", "Value", "Null", "Undefined"],
+        "correctAnswer": "Value"
+      }
+    ]
+  }
+]

@@ -1,0 +1,35 @@
+[
+  {
+    "id": "1",
+    "title": "JavaScript Basics",
+    "description": "Learn the fundamentals of JavaScript for web development.",
+    "chapters": [
+      {
+        "title": "Chapter 1: Introduction to JavaScript",
+        "topics": [
+          { "title": "Variables and Data Types", "content": "Learn about var, let, const, and data types." },
+          { "title": "Functions", "content": "Understand function declarations and expressions." },
+          { "title": "Basic Syntax", "content": "Explore JavaScript syntax and operators." }
+        ],
+        "assessment": { "title": "Chapter 1 Quiz", "id": "a1" }
+      },
+      {
+        "title": "Chapter 2: DOM Manipulation",
+        "topics": [
+          { "title": "Selecting Elements", "content": "Use querySelector and getElementById." },
+          { "title": "Event Handling", "content": "Add event listeners for user interactions." }
+        ],
+        "assessment": { "title": "Chapter 2 Quiz", "id": "a2" }
+      },
+      {
+        "title": "Chapter 3: Advanced Concepts",
+        "topics": [
+          { "title": "Closures", "content": "Understand closures and scope." },
+          { "title": "Promises", "content": "Work with asynchronous JavaScript." },
+          { "title": "ES6 Features", "content": "Explore arrow functions and destructuring." }
+        ]
+      }
+    ],
+    "finalAssessment": { "title": "JavaScript Basics Final Exam", "id": "a3" }
+  }
+]

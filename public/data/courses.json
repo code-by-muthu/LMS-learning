@@ -1,60 +1,189 @@
-
-   [
-     {
-       "id": "1",
-       "title": "JavaScript Mastery",
-       "level": "Beginner to Advanced",
-       "img": "https://via.placeholder.com/300x200",
-       "progress": 60
-     },
-     {
-       "id": "2",
-       "title": "Python for Data Science",
-       "level": "Intermediate",
-       "img": "https://via.placeholder.com/300x200",
-       "progress": 40
-     },
-     {
-       "id": "3",
-       "title": "Web Development Bootcamp",
-       "level": "All Levels",
-       "img": "https://via.placeholder.com/300x200",
-       "progress": 80
-     },
-     {
-       "id": "4",
-       "title": "React Pro",
-       "level": "Advanced",
-       "img": "https://via.placeholder.com/300x200",
-       "progress": 20
-     },
-     {
-       "id": "5",
-       "title": "Node.js Essentials",
-       "level": "Intermediate",
-       "img": "https://via.placeholder.com/300x200",
-       "progress": 50
-     },
-     {
-       "id": "6",
-       "title": "AI & Machine Learning",
-       "level": "Advanced",
-       "img": "https://via.placeholder.com/300x200",
-       "progress": 30
-     },
-     {
-       "id": "7",
-       "title": "Cloud Computing Basics",
-       "level": "Beginner",
-       "img": "https://via.placeholder.com/300x200",
-       "progress": 70
-     },
-     {
-       "id": "8",
-       "title": "Cybersecurity Fundamentals",
-       "level": "All Levels",
-       "img": "https://via.placeholder.com/300x200",
-       "progress": 45
-     }
-   ]
-   
+[
+  {
+    "id": "1",
+    "title": "JavaScript Basics",
+    "level": "Beginner",
+    "img": "/images/JavaScript.png",
+    "category": "Web Development",
+    "creator": "John Doe",
+    "rating": 4.8,
+    "numMembers": 1200,
+    "price": 5999,
+    "discountPrice": 4999,
+    "label": "Bestseller"
+  },
+  {
+    "id": "2",
+    "title": "Python Essentials",
+    "level": "Intermediate",
+    "img": "/images/Python.png",
+    "category": "Data Science",
+    "creator": "Jane Smith",
+    "rating": 4.5,
+    "numMembers": 850,
+    "price": 6999,
+    "discountPrice": 5499
+  },
+  {
+    "id": "3",
+    "title": "Web Dev 101",
+    "level": "All Levels",
+    "img": "/images/web-dev.png",
+    "category": "Web Development",
+    "creator": "Alex Brown",
+    "rating": 4.9,
+    "numMembers": 2000,
+    "price": 7999,
+    "discountPrice": 6499,
+    "label": "Top Rated"
+  },
+  {
+    "id": "4",
+    "title": "React Fundamentals",
+    "level": "Advanced",
+    "img": "/images/React.png",
+    "category": "Web Development",
+    "creator": "Emily Davis",
+    "rating": 4.7,
+    "numMembers": 600,
+    "price": 6499,
+    "discountPrice": 5299
+  },
+  {
+    "id": "5",
+    "title": "Node.js Crash Course",
+    "level": "Intermediate",
+    "img": "/images/Node-js.png",
+    "category": "Backend Development",
+    "creator": "Michael Lee",
+    "rating": 4.6,
+    "numMembers": 950,
+    "price": 5999,
+    "discountPrice": 4999,
+    "label": "Trending"
+  },
+  {
+    "id": "6",
+    "title": "AI Introduction",
+    "level": "Advanced",
+    "img": "/images/AI.png",
+    "category": "Artificial Intelligence",
+    "creator": "Sarah Wilson",
+    "rating": 4.8,
+    "numMembers": 400,
+    "price": 8999,
+    "discountPrice": 7499,
+    "label": "Most Popular"
+  },
+  {
+    "id": "7",
+    "title": "Cloud Essentials",
+    "level": "Beginner",
+    "img": "/images/Cloud.png",
+    "category": "Cloud Computing",
+    "creator": "David Kim",
+    "rating": 4.4,
+    "numMembers": 1100,
+    "price": 4999,
+    "discountPrice": 3999
+  },
+  {
+    "id": "8",
+    "title": "Cybersecurity Intro",
+    "level": "All Levels",
+    "img": "/images/Cybersecurity.png",
+    "category": "Cybersecurity",
+    "creator": "Laura Adams",
+    "rating": 4.7,
+    "numMembers": 750,
+    "price": 6999,
+    "discountPrice": 5799
+  },
+  {
+    "id": "9",
+    "title": "SQL for Beginners",
+    "level": "Beginner",
+    "img": "/images/SQL.png",
+    "category": "Databases",
+    "creator": "Chris Taylor",
+    "rating": 4.6,
+    "numMembers": 500,
+    "price": 5499,
+    "discountPrice": 4499
+  },
+  {
+    "id": "10",
+    "title": "Data Analysis with Pandas",
+    "level": "Intermediate",
+    "img": "/images/pandas.png",
+    "category": "Data Science",
+    "creator": "Sophia Martinez",
+    "rating": 4.8,
+    "numMembers": 1300,
+    "price": 7999,
+    "discountPrice": 6499
+  },
+  {
+    "id": "11",
+    "title": "Machine Learning Basics",
+    "level": "All Levels",
+    "img": "/images/ml.png",
+    "category": "Artificial Intelligence",
+    "creator": "Daniel Carter",
+    "rating": 4.9,
+    "numMembers": 2200,
+    "price": 9999,
+    "discountPrice": 7999,
+    "label": "Top Rated"
+  },
+  {
+    "id": "12",
+    "title": "AWS Cloud Practitioner",
+    "level": "Beginner",
+    "img": "/images/aws.png",
+    "category": "Cloud Computing",
+    "creator": "Kevin Johnson",
+    "rating": 4.5,
+    "numMembers": 900,
+    "price": 6999,
+    "discountPrice": 5999
+  },
+  {
+    "id": "13",
+    "title": "Ethical Hacking Basics",
+    "level": "Intermediate",
+    "img": "/images/hacking.png",
+    "category": "Cybersecurity",
+    "creator": "Olivia Green",
+    "rating": 4.6,
+    "numMembers": 1250,
+    "price": 8499,
+    "discountPrice": 6999,
+    "label": "Trending"
+  },
+  {
+    "id": "14",
+    "title": "MongoDB Crash Course",
+    "level": "Intermediate",
+    "img": "/images/mongodb.png",
+    "category": "Databases",
+    "creator": "William Brown",
+    "rating": 4.7,
+    "numMembers": 770,
+    "price": 5999,
+    "discountPrice": 4999
+  },
+  {
+    "id": "15",
+    "title": "UI/UX Design Fundamentals",
+    "level": "Beginner",
+    "img": "/images/uiux.png",
+    "category": "Design",
+    "creator": "Emma Roberts",
+    "rating": 4.8,
+    "numMembers": 1600,
+    "price": 6499,
+    "discountPrice": 5299,
+    "label": "Bestseller"
+  }
+]

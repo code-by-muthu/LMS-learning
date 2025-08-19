@@ -1,0 +1,66 @@
+[
+  {
+    "id": "e1",
+    "type": "error",
+    "name": "JavaScript Errors",
+    "description": "Solve common JavaScript debugging issues.",
+    "image": "/images/JS-Error.png",
+    "category": "JavaScript"
+  },
+  {
+    "id": "e2",
+    "type": "error",
+    "name": "Python Errors",
+    "description": "Troubleshoot Python coding errors.",
+    "image": "/images/Python-Error.png",
+    "category": "Python"
+  },
+  {
+    "id": "e3",
+    "type": "error",
+    "name": "React Errors",
+    "description": "Fix React development challenges.",
+    "image": "/images/React-Error.png",
+    "category": "React"
+  },
+  {
+    "id": "e4",
+    "type": "error",
+    "name": "Node.js Errors",
+    "description": "Resolve Node.js runtime issues.",
+    "image": "/images/Node-Error.png",
+    "category": "Node.js"
+  },
+  {
+    "id": "e5",
+    "type": "error",
+    "name": "SQL Errors",
+    "description": "Address SQL query and database errors.",
+    "image": "/images/SQL-Error.png",
+    "category": "SQL"
+  },
+  {
+    "id": "e6",
+    "type": "error",
+    "name": "AI Model Errors",
+    "description": "Debug AI and machine learning models.",
+    "image": "/images/AI-Error.png",
+    "category": "Artificial Intelligence"
+  },
+  {
+    "id": "e7",
+    "type": "error",
+    "name": "Cloud Deployment Errors",
+    "description": "Fix cloud deployment and configuration issues.",
+    "image": "/images/Cloud-Error.png",
+    "category": "Cloud Computing"
+  },
+  {
+    "id": "e8",
+    "type": "error",
+    "name": "Cybersecurity Errors",
+    "description": "Resolve security-related coding errors.",
+    "image": "/images/Cybersecurity-Error.png",
+    "category": "Cybersecurity"
+  }
+]
