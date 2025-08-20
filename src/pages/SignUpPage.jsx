@@ -6,7 +6,7 @@ const SignUpPage = () => {
     username: '', 
     email: '', 
     password: '',
-    confirmPassword: ''   // ✅ Added confirm password
+    confirmPassword: ''   
   });
   const [error, setError] = useState(null);
 
@@ -16,7 +16,6 @@ const SignUpPage = () => {
 
   const handleSignUp = () => {
     try {
-      // Placeholder for sign-up logic (replace with actual API call)
       console.log('Sign Up:', signUpData);
     } catch (err) {
       setError('Sign-up failed: Invalid input');
@@ -37,7 +36,6 @@ const SignUpPage = () => {
     <div className="bg-[var(--main-bg)] min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-12">
       <div className="relative w-full max-w-md bg-[var(--dark-charcoal)] rounded-lg shadow-[0_0_20px_var(--blue-glow)] p-6 sm:p-8">
         
-        {/* Background Glow Effects */}
         <div className="absolute top-0 left-0 w-48 h-48 bg-[var(--neon-purple)] rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
         <div className="absolute bottom-0 right-0 w-48 h-48 bg-[var(--electric-blue)] rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
 
@@ -91,7 +89,7 @@ const SignUpPage = () => {
             />
           </div>
 
-          {/* ✅ Confirm Password */}
+        
           <div>
             <label className="text-[var(--white-smoke)] text-sm sm:text-base">Confirm Password</label>
             <input
