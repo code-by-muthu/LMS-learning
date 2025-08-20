@@ -2,122 +2,49 @@
   {
     "id": "c1",
     "type": "course",
-    "name": "Web Development",
-    "description": "Master web technologies and build stunning websites.",
-    "image": "/images/web-dev.png"
+    "name": "Technology & Programming",
+    "image": "/images/technology.png"
   },
   {
     "id": "c2",
     "type": "course",
-    "name": "Data Science",
-    "description": "Analyze data and unlock insights with advanced techniques.",
-    "image": "/images/Python.png"
+    "name": "Business & Management",
+    "image": "/images/business.png"
   },
   {
     "id": "c3",
     "type": "course",
-    "name": "Frontend Development",
-    "description": "Create interactive and responsive user interfaces.",
-    "image": "/images/React.png"
+    "name": "Data Science & AI",
+    "image": "/images/data-science.png"
   },
   {
     "id": "c4",
     "type": "course",
-    "name": "Backend Development",
-    "description": "Build robust server-side applications.",
-    "image": "/images/Node-js.png"
+    "name": "Personal Development & Lifestyle",
+    "image": "/images/personal-development.png"
   },
   {
     "id": "c5",
     "type": "course",
-    "name": "Artificial Intelligence",
-    "description": "Explore AI and machine learning concepts.",
-    "image": "/images/AI.png"
+    "name": "Health & Fitness",
+    "image": "/images/health-fitness.png"
   },
   {
     "id": "c6",
     "type": "course",
-    "name": "Cloud Computing",
-    "description": "Learn cloud infrastructure and deployment.",
-    "image": "/images/Cloud.png"
+    "name": "Design & Creative Arts",
+    "image": "/images/design.png"
   },
   {
     "id": "c7",
     "type": "course",
-    "name": "Cybersecurity",
-    "description": "Protect systems with security best practices.",
-    "image": "/images/Cybersecurity.png"
+    "name": "Science & Engineering",
+    "image": "/images/science-engineering.png"
   },
   {
     "id": "c8",
     "type": "course",
-    "name": "Database Management",
-    "description": "Manage and optimize databases effectively.",
-    "image": "/images/Cloud.png"
-  },
-
-  {
-    "id": "e1",
-    "type": "error",
-    "name": "JavaScript Errors",
-    "description": "Solve common JavaScript debugging issues.",
-    "image": "/images/JS-Error.png",
-    "category": "Frontend Development"
-  },
-  {
-    "id": "e2",
-    "type": "error",
-    "name": "Python Errors",
-    "description": "Troubleshoot Python coding errors.",
-    "image": "/images/Python-Error.png",
-    "category": "Data Science"
-  },
-  {
-    "id": "e3",
-    "type": "error",
-    "name": "React Errors",
-    "description": "Fix React development challenges.",
-    "image": "/images/React-Error.png",
-    "category": "Frontend Development"
-  },
-  {
-    "id": "e4",
-    "type": "error",
-    "name": "Node.js Errors",
-    "description": "Resolve Node.js runtime issues.",
-    "image": "/images/Node-Error.png",
-    "category": "Backend Development"
-  },
-  {
-    "id": "e5",
-    "type": "error",
-    "name": "SQL Errors",
-    "description": "Address SQL query and database errors.",
-    "image": "/images/SQL-Error.png",
-    "category": "Database Management"
-  },
-  {
-    "id": "e6",
-    "type": "error",
-    "name": "AI Model Errors",
-    "description": "Debug AI and machine learning models.",
-    "image": "/images/AI-Error.png",
-    "category": "Artificial Intelligence"
-  },
-  {
-    "id": "e7",
-    "type": "error",
-    "name": "Cloud Deployment Errors",
-    "description": "Fix cloud deployment and configuration issues.",
-    "image": "/images/Cloud-Error.png",
-    "category": "Cloud Computing"
-  },
-  {
-    "id": "e8",
-    "type": "error",
-    "name": "Cybersecurity Errors",
-    "description": "Resolve security-related coding errors.",
-    "image": "/images/Cybersecurity-Error.png",
-    "category": "Cybersecurity"
+    "name": "Language & Communication",
+    "image": "/images/language.png"
   }
 ]

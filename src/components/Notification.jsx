@@ -43,3 +43,4 @@ const Notification = ({ message, type = 'success', onClose }) => {
 };
 
 export default Notification;
+

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
   FaTimes,
   FaHome,
@@ -11,12 +12,12 @@ import {
 
 const Sidebar = ({ setIsSidebarOpen }) => {
   const options = [
-    { name: 'Home', icon: <FaHome /> },
-    { name: 'All Courses', icon: <FaBook /> },
-    { name: 'My Learning', icon: <FaUserGraduate /> },
-    { name: 'Pricing', icon: <FaTags /> },
-    { name: 'Support', icon: <FaHeadset /> },
-    { name: 'Terms & Conditions', icon: <FaFileContract /> },
+    { name: 'Home', icon: <FaHome />, path: '/' },
+    { name: 'All Courses', icon: <FaBook />, path: '/courses' },
+    { name: 'My Learning', icon: <FaUserGraduate />, path: '/profile' },
+    { name: 'Pricing', icon: <FaTags />, path: '/pricing' },
+    { name: 'Support', icon: <FaHeadset />, path: '/support' },
+    { name: 'Terms & Conditions', icon: <FaFileContract />, path: '/terms' },
   ];
 
   return (
@@ -35,18 +36,15 @@ const Sidebar = ({ setIsSidebarOpen }) => {
 
       <div className="flex flex-col mt-6 px-4 space-y-3">
         {options.map((option, index) => (
-          <a
+          <Link
             key={index}
-            href="#"
+            to={option.path}
             className="flex items-center gap-3 py-3 px-4 rounded-lg text-lg font-medium text-[var(--white-smoke)] hover:bg-gradient-to-r hover:from-[var(--neon-purple)] hover:to-[var(--electric-blue)] hover:shadow-[0_0_12px_var(--blue-glow)] hover:scale-[1.02] transition-all duration-300"
-            onClick={(e) => {
-              e.preventDefault();
-              setIsSidebarOpen(false);
-            }}
+            onClick={() => setIsSidebarOpen(false)}
           >
             <span className="text-xl">{option.icon}</span>
             <span>{option.name}</span>
-          </a>
+          </Link>
         ))}
       </div>
     </div>

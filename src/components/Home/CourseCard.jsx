@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { FaHeart, FaStar } from 'react-icons/fa';
+import Notification from '../Course/Notification';
 
 const CourseCard = ({
   course,
@@ -15,6 +16,8 @@ const CourseCard = ({
   const cardRef = useRef(null);
   const wishlistRef = useRef(null);
   const ratingRef = useRef(null);
+  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [notification, setNotification] = useState({ message: '', type: 'success' });
 
   useEffect(() => {
     const card = cardRef.current;
@@ -91,6 +94,15 @@ const CourseCard = ({
     };
   }, [index, showWishlist, showRating]);
 
+  const handleBookmark = (e) => {
+    e.stopPropagation(); // Prevent Link navigation
+    setIsBookmarked(!isBookmarked);
+    setNotification({
+      message: isBookmarked ? 'Removed from wishlist' : 'Added to wishlist',
+      type: 'success',
+    });
+  };
+
   const renderStars = (rating) => {
     const stars = [];
     const fullStars = Math.floor(rating);
@@ -109,72 +121,68 @@ const CourseCard = ({
   };
 
   return (
-    <Link
-      to={`/courses/${course.id}`}
-      className={`course-card relative flex-none bg-[var(--dark-charcoal)] rounded-lg shadow-[0_0_12px_var(--green-glow)] overflow-hidden transition-all duration-300 w-[280px] h-[360px] ${className}`}
-      ref={cardRef}
-    >
-      {/* Thumbnail + Wishlist */}
-      <div className="relative w-full h-40">
-        <img
-          src={course.img}
-          alt={course.title}
-          className="w-full h-full object-cover rounded-t-lg"
-          onError={(e) => {
-            e.target.src = 'https://via.placeholder.com/280x160?text=No+Image';
-          }}
-        />
-        {showWishlist && (
-          <button
-            ref={wishlistRef}
-            className="absolute top-2 right-2 text-[var(--white-smoke)] text-base p-2 rounded-full bg-[var(--dark-charcoal)] border border-[var(--aqua-glow)] transition-all duration-300"
-            onClick={(e) => {
-              e.preventDefault();
-              console.log(`Added ${course.title} to wishlist`);
+    <div className="relative">
+      <Notification
+        message={notification.message}
+        type={notification.type}
+        onClose={() => setNotification({ message: '', type: 'success' })}
+      />
+      <Link
+        to={`/course/${course.id}`}
+        className={`course-card relative flex-none bg-[var(--dark-charcoal)] rounded-lg shadow-[0_0_12px_var(--green-glow)] overflow-hidden transition-all duration-300 w-[280px] h-[360px] ${className}`}
+        ref={cardRef}
+      >
+        {/* Thumbnail + Wishlist */}
+        <div className="relative w-full h-40">
+          <img
+            src={course.img}
+            alt={course.title}
+            className="w-full h-full object-cover rounded-t-lg"
+            onError={(e) => {
+              e.target.src = 'https://via.placeholder.com/280x160?text=No+Image';
             }}
-          >
-            <FaHeart />
-          </button>
-        )}
-      </div>
-{/* Content */}
-<div className="px-4 py-4 flex flex-col justify-between h-[200px] space-y-2">
-  {/* Title */}
-  <h3 className="text-base font-extrabold text-[var(--white-smoke)] line-clamp-2 [text-shadow:0_0_6px_var(--blue-glow)] leading-snug">
-    {course.title}
-  </h3>
-
-  {/* Level + Creator */}
-  <div className="flex items-center justify-between">
-    <p className="text-xs text-[var(--white-smoke)] opacity-80 truncate">{course.level}</p>
-    {showCreator && (
-      <p className="text-xs text-[var(--white-smoke)] font-medium truncate">By {course.creator}</p>
-    )}
-  </div>
-
-  {/* Rating */}
-  {showRating && (
-    <div ref={ratingRef} className="flex items-center justify-center gap-1">
-      <span className="text-sm font-bold text-[var(--cyber-yellow)]">{course.rating}</span>
-      <div className="flex items-center gap-0.5">{renderStars(course.rating)}</div>
-      <span className="text-xs text-[var(--white-smoke)] opacity-80">({course.numMembers})</span>
+          />
+          {showWishlist && (
+            <button
+              ref={wishlistRef}
+              className="absolute top-2 right-2 text-[var(--white-smoke)] text-base p-2 rounded-full bg-[var(--dark-charcoal)] border border-[var(--aqua-glow)] transition-all duration-300"
+              onClick={handleBookmark}
+            >
+              <FaHeart className={isBookmarked ? 'text-[var(--neon-pink)]' : ''} />
+            </button>
+          )}
+        </div>
+        {/* Content */}
+        <div className="px-4 py-4 flex flex-col justify-between h-[200px] space-y-2">
+          <h3 className="text-base font-extrabold text-[var(--white-smoke)] line-clamp-2 [text-shadow:0_0_6px_var(--blue-glow)] leading-snug">
+            {course.title}
+          </h3>
+          <div className="flex items-center justify-between">
+            <p className="text-xs text-[var(--white-smoke)] opacity-80 truncate">{course.level}</p>
+            {showCreator && (
+              <p className="text-xs text-[var(--white-smoke)] font-medium truncate">By {course.creator}</p>
+            )}
+          </div>
+          {showRating && (
+            <div ref={ratingRef} className="flex items-center justify-center gap-1">
+              <span className="text-sm font-bold text-[var(--cyber-yellow)]">{course.rating}</span>
+              <div className="flex items-center gap-0.5">{renderStars(course.rating)}</div>
+              <span className="text-xs text-[var(--white-smoke)] opacity-80">({course.numMembers})</span>
+            </div>
+          )}
+          {showPrice && (
+            <div className="flex items-center justify-center gap-2">
+              <span className="text-base font-bold text-[var(--neon-pink)] [text-shadow:0_0_6px_var(--pink-glow)]">
+                ₹{course.discountPrice}
+              </span>
+              <span className="text-sm text-[var(--white-smoke)] opacity-80 line-through">
+                ₹{course.price}
+              </span>
+            </div>
+          )}
+        </div>
+      </Link>
     </div>
-  )}
-
-  {/* Price */}
-  {showPrice && (
-    <div className="flex items-center justify-center gap-2">
-      <span className="text-base font-bold text-[var(--neon-pink)] [text-shadow:0_0_6px_var(--pink-glow)]">
-        ₹{course.discountPrice}
-      </span>
-      <span className="text-sm text-[var(--white-smoke)] opacity-80 line-through">
-        ₹{course.price}
-      </span>
-    </div>
-  )}
-</div>
-
-    </Link>
   );
 };
 
