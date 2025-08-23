@@ -65,9 +65,7 @@ const AllCourses = () => {
           duration: 0.6, 
           delay: 0.4, 
           ease: 'power2.out',
-          repeat: -1,
-          repeatDelay: 1.5,
-          yoyo: true,
+          
           keyframes: [
             { scale: 1, duration: 0.6 },
             { scale: 1.05, duration: 0.3 },

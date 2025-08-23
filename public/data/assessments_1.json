@@ -1,0 +1,106 @@
+[
+  {
+    "id": "q1",
+    "courseId": "py101",
+    "title": "Chapter 1 Quiz",
+    "type": "quiz",
+    "passed": false,
+    "questions": [
+      {
+        "id": "q1-1",
+        "text": "Which Python keyword is used to define a function?",
+        "options": ["func", "define", "def", "function"],
+        "correctAnswer": "def"
+      },
+      {
+        "id": "q1-2",
+        "text": "Which of the following is a valid variable name in Python?",
+        "options": ["2value", "value2", "value-2", "value 2"],
+        "correctAnswer": "value2"
+      },
+      {
+        "id": "q1-3",
+        "text": "What is the output of `print(type(3.14))` in Python?",
+        "options": ["<class 'int'>", "<class 'float'>", "<class 'str'>", "<class 'bool'>"],
+        "correctAnswer": "<class 'float'>"
+      },
+      {
+        "id": "q1-4",
+        "text": "How do you get user input in Python?",
+        "options": ["input()", "get()", "read()", "scan()"],
+        "correctAnswer": "input()"
+      }
+    ]
+  },
+  {
+    "id": "q2",
+    "courseId": "py101",
+    "title": "Chapter 2 Quiz",
+    "type": "quiz",
+    "passed": false,
+    "questions": [
+      {
+        "id": "q2-1",
+        "text": "Which loop is used to iterate over a sequence in Python?",
+        "options": ["for", "while", "loop", "repeat"],
+        "correctAnswer": "for"
+      },
+      {
+        "id": "q2-2",
+        "text": "Which keyword is used for conditional branching in Python?",
+        "options": ["if", "else", "when", "switch"],
+        "correctAnswer": "if"
+      },
+      {
+        "id": "q2-3",
+        "text": "What does the `continue` keyword do in a loop?",
+        "options": [
+          "Exits the loop",
+          "Skips to the next iteration",
+          "Restarts the loop",
+          "Pauses the loop"
+        ],
+        "correctAnswer": "Skips to the next iteration"
+      },
+      {
+        "id": "q2-4",
+        "text": "What is the output of `print(10 % 3)` in Python?",
+        "options": ["3", "1", "30", "Error"],
+        "correctAnswer": "1"
+      }
+    ]
+  },
+  {
+    "id": "fa1",
+    "courseId": "py101",
+    "title": "Final Assessment",
+    "type": "final",
+    "passed": false,
+    "questions": [
+      {
+        "id": "fa1-1",
+        "text": "What is the output of `print(2 ** 3)` in Python?",
+        "options": ["6", "8", "23", "Error"],
+        "correctAnswer": "8"
+      },
+      {
+        "id": "fa1-2",
+        "text": "Which data type is immutable in Python?",
+        "options": ["List", "Tuple", "Dictionary", "Set"],
+        "correctAnswer": "Tuple"
+      },
+      {
+        "id": "fa1-3",
+        "text": "Which keyword is used to exit a loop prematurely in Python?",
+        "options": ["exit", "stop", "break", "end"],
+        "correctAnswer": "break"
+      },
+      {
+        "id": "fa1-4",
+        "text": "What is the output of `len('Python')` in Python?",
+        "options": ["5", "6", "7", "Error"],
+        "correctAnswer": "6"
+      }
+    ]
+  }
+]

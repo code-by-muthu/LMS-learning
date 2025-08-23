@@ -1,46 +1,131 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { gsap } from 'gsap';
+import Notification from '../components/Course/Notification';
 import QuizComponent from '../components/Course/QuizComponent';
 import FinalAssessment from '../components/Course/FinalAssessment';
 import Loader from '../components/Course/Loader';
-import Notification from '../components/Course/Notification';
 
 const Assessment = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [assessment, setAssessment] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [notification, setNotification] = useState({ message: '', type: 'success' });
+  const [score, setScore] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
-    // Fetch assessment data (adjust endpoint as needed)
-    fetch(`/data/assessments/${id}.json`)
-      .then((response) => response.json())
+    fetch('/data/assessments_1.json')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Failed to fetch assessments: ${response.status} ${response.statusText}`);
+        }
+        return response.json();
+      })
       .then((data) => {
-        setAssessment(data);
+        const foundAssessment = data.find((a) => a.id === id);
+        if (!foundAssessment) {
+          throw new Error(`Assessment with ID ${id} not found`);
+        }
+        setAssessment(foundAssessment);
         setIsLoading(false);
       })
       .catch((err) => {
-        setError(err.message);
+        console.error('Fetch error:', err);
+        setNotification({ message: err.message, type: 'error' });
         setIsLoading(false);
       });
   }, [id]);
 
-  const handleComplete = () => {
-    Notification.show('Assessment completed successfully!', 'success');
-    // Navigate to certificate or next step if needed
+  useEffect(() => {
+    if (assessment) {
+      gsap.fromTo(
+        '.assessment-container',
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }
+      );
+    }
+  }, [assessment]);
+
+  const handleComplete = (userAnswers, errorMessage) => {
+    if (!assessment) return;
+
+    if (errorMessage) {
+      setNotification({ message: errorMessage, type: 'error' });
+      return;
+    }
+
+    let correctCount = 0;
+    const totalQuestions = assessment.type === 'quiz' ? assessment.quiz.questions.length : assessment.questions.length;
+    const questions = assessment.type === 'quiz' ? assessment.quiz.questions : assessment.questions;
+
+    questions.forEach((q, index) => {
+      if (userAnswers && userAnswers[index] === q.correctAnswer) {
+        correctCount++;
+      }
+    });
+
+    const finalScore = (correctCount / totalQuestions) * 100;
+    setScore(finalScore);
+
+    console.log('Submitting score:', { assessmentId: id, score: finalScore, userAnswers });
+
+    setNotification({
+      message: `Assessment completed! Your score: ${finalScore.toFixed(2)}%`,
+      type: finalScore >= 70 ? 'success' : 'error',
+    });
+
+    if (assessment.type === 'final' && finalScore >= 70) {
+      setTimeout(() => navigate(`/certificate/${assessment.courseId}`), 2000);
+    } else if (assessment.type === 'quiz' && finalScore >= 70) {
+      setTimeout(() => navigate(`/course/${assessment.courseId}/learn`), 2000);
+    }
   };
 
-  if (isLoading) return <Loader />;
-  if (error) return <div className="text-[var(--neon-red)] text-center py-16">Error: {error}</div>;
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-[var(--main-bg)]">
+        <Loader />
+      </div>
+    );
+  }
+
+  if (!assessment) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-[var(--main-bg)]">
+        <div className="text-[var(--neon-red)] text-lg">Error: {notification.message}</div>
+      </div>
+    );
+  }
 
   return (
-    <div className="container mx-auto px-4 max-w-7xl py-12">
-      {assessment.type === 'final' ? (
-        <FinalAssessment onComplete={handleComplete} />
-      ) : (
-        <QuizComponent quiz={assessment} />
-      )}
+    <div className="bg-[var(--main-bg)] min-h-screen text-[var(--white-smoke)] py-8 sm:py-12 lg:py-16">
+      <Notification
+        message={notification.message}
+        type={notification.type}
+        onClose={() => setNotification({ message: '', type: 'success' })}
+      />
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl assessment-container">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[var(--neon-purple)] [text-shadow:0_0_15px_var(--pink-glow)] mb-6 uppercase tracking-wide">
+          {assessment.title}
+        </h1>
+        {assessment.type === 'final' ? (
+          <FinalAssessment assessment={assessment} onComplete={handleComplete} />
+        ) : (
+          <QuizComponent quiz={assessment} onComplete={handleComplete} />
+        )}
+        {score !== null && (
+          <div className="mt-6 p-4 sm:p-5 bg-[var(--dark-charcoal)]/80 rounded-lg border-2 border-[var(--neon-pink)] shadow-[0_0_12px_var(--pink-glow)]">
+            <p className="text-lg sm:text-xl font-extrabold text-[var(--acid-green)] [text-shadow:0_0_8px_var(--blue-glow)]">
+              Your Score: {score.toFixed(2)}%
+            </p>
+            <p className="text-sm sm:text-base text-[var(--white-smoke)] opacity-80 mt-2">
+              {score >= 70 ? 'Congratulations! You passed.' : 'Please review and try again.'}
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

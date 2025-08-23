@@ -14,7 +14,8 @@ import CategoryCourses from './pages/CategoryCourses';
 import CoursePage from './pages/CoursePage';
 import LearningLayout from './components/Course/LearningLayout';
 import Assessment from './pages/Assessment';
-import PricingPage from './pages/PricingPage'; // Add this
+import PricingPage from './pages/PricingPage';
+import CertificatePage from './pages/CertificatePage';
 import './App.css';
 
 function App() {
@@ -31,20 +32,17 @@ function App() {
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/change-password" element={<ChangePasswordPage />} />
-            
             {/* Course Routes */}
             <Route path="/courses" element={<AllCourses />} />
             <Route path="/categories" element={<Categories />} />
             <Route path="/category/:categoryName" element={<CategoryCourses />} />
             <Route path="/course/:id" element={<CoursePage />} />
             <Route path="/course/:id/learn" element={<LearningLayout />} />
-            
             {/* Assessment and Certificate Routes */}
             <Route path="/assessment/:id" element={<Assessment />} />
-            
+            <Route path="/certificate/:courseId" element={<CertificatePage />} />
             {/* Review Route */}
             <Route path="/review/:id" element={<ReviewDetailsPage />} />
-            
             {/* Pricing Route */}
             <Route path="/pricing" element={<PricingPage />} />
           </Routes>

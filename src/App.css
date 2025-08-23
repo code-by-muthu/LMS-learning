@@ -16,6 +16,13 @@
   --blue-glow: rgba(0,255,255,0.4);
   --pink-glow: rgba(255,0,255,0.4);
   --green-glow: rgba(57,255,20,0.4);
+
+  --midnight-blue: #0A0A23;
+  --neon-blue: #00B7EB;
+  --electric-violet: #9B00FA;
+  --soft-ivory: #F5F5F5;
+  --cyber-green: #00FF85;
+  --magenta-glow: #FF00A0;
   /* Background */
   --main-bg: #0F0F1A;
     --yellow-glow: rgba(255, 215, 0, 0.5);
