@@ -16,7 +16,10 @@ const CourseCard = ({
   const cardRef = useRef(null);
   const wishlistRef = useRef(null);
   const ratingRef = useRef(null);
-  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(() => {
+    const bookmarkedIds = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    return bookmarkedIds.includes(course.id);
+  });
   const [notification, setNotification] = useState({ message: '', type: 'success' });
 
   useEffect(() => {
@@ -41,13 +44,16 @@ const CourseCard = ({
       });
       if (wishlist && showWishlist) {
         gsap.to(wishlist, {
-          scale: 1.2,
-          color: 'var(--white-smoke)',
-          backgroundColor: 'var(--neon-pink)',
-          boxShadow: '0 0 15px var(--pink-glow), 0 0 5px var(--pink-glow) inset',
-          rotate: 10,
-          duration: 0.3,
-          ease: 'elastic.out(1, 0.5)',
+          scale: 1.15,
+          color: 'var(--neon-pink)',
+          backgroundColor: 'var(--dark-charcoal)',
+          boxShadow: '0 0 20px var(--pink-glow), 0 0 8px var(--pink-glow) inset',
+          duration: 0.4,
+          ease: 'power3.out',
+          keyframes: [
+            { scale: 1.25, duration: 0.2 },
+            { scale: 1.15, duration: 0.2 },
+          ],
         });
       }
       if (rating && showRating) {
@@ -69,10 +75,9 @@ const CourseCard = ({
       if (wishlist && showWishlist) {
         gsap.to(wishlist, {
           scale: 1,
-          color: 'var(--white-smoke)',
+          color: isBookmarked ? 'var(--neon-pink)' : 'var(--white-smoke)',
           backgroundColor: 'var(--dark-charcoal)',
           boxShadow: 'none',
-          rotate: 0,
           duration: 0.3,
           ease: 'power2.out',
         });
@@ -92,14 +97,39 @@ const CourseCard = ({
       card.removeEventListener('mouseenter', handleEnter);
       card.removeEventListener('mouseleave', handleLeave);
     };
-  }, [index, showWishlist, showRating]);
+  }, [index, showWishlist, showRating, isBookmarked]);
 
   const handleBookmark = (e) => {
-    e.stopPropagation(); // Prevent Link navigation
+    e.preventDefault();
+    e.stopPropagation();
+    const bookmarkedIds = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    let updatedBookmarks;
+    if (isBookmarked) {
+      updatedBookmarks = bookmarkedIds.filter(id => id !== course.id);
+    } else {
+      updatedBookmarks = [...bookmarkedIds, course.id];
+    }
+    localStorage.setItem('wishlist', JSON.stringify(updatedBookmarks));
     setIsBookmarked(!isBookmarked);
     setNotification({
       message: isBookmarked ? 'Removed from wishlist' : 'Added to wishlist',
       type: 'success',
+    });
+
+    // Click animation for heart
+    gsap.to(wishlistRef.current, {
+      scale: 1.5,
+      color: isBookmarked ? 'var(--white-smoke)' : 'var(--neon-pink)',
+      duration: 0.2,
+      ease: 'power3.out',
+      yoyo: true,
+      repeat: 1,
+      onComplete: () => {
+        gsap.to(wishlistRef.current, {
+          scale: 1,
+          duration: 0.2,
+        });
+      },
     });
   };
 

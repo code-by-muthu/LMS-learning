@@ -144,7 +144,7 @@ const Navbar = () => {
               All Courses
             </Link>
             <Link
-              to="/favorites"
+              to="/wishlist"
               className="text-[var(--white-smoke)] text-lg p-2 hover:text-[var(--neon-pink)] hover:[text-shadow:0_0_10px_var(--pink-glow)] transition-all duration-300"
             >
               <FaHeart className="text-2xl" />
@@ -191,7 +191,7 @@ const Navbar = () => {
           <span>All Courses</span>
         </Link>
         <Link
-          to="/favorites"
+          to="/wishlist"
           className="text-[var(--white-smoke)] text-lg p-2 hover:text-[var(--neon-pink)] hover:[text-shadow:0_0_10px_var(--pink-glow)] transition-all duration-300"
         >
           <FaHeart className="text-2xl" />

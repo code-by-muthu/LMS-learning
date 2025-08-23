@@ -16,6 +16,8 @@ import LearningLayout from './components/Course/LearningLayout';
 import Assessment from './pages/Assessment';
 import PricingPage from './pages/PricingPage';
 import CertificatePage from './pages/CertificatePage';
+import Wishlist from './pages/Wishlist';
+
 import './App.css';
 
 function App() {
@@ -45,6 +47,9 @@ function App() {
             <Route path="/review/:id" element={<ReviewDetailsPage />} />
             {/* Pricing Route */}
             <Route path="/pricing" element={<PricingPage />} />
+
+            {/* Wishlist Route */}
+            <Route path="/wishlist" element={<Wishlist />} />
           </Routes>
         </main>
       </div>
