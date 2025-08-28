@@ -4,6 +4,7 @@ import { jsPDF } from 'jspdf';
 import { gsap } from 'gsap';
 import Notification from '../components/Course/Notification';
 import Button from '../components/ui/Button';
+import certificateData from '../../public/data/certificateData.json'; // adjust path as needed
 
 const CertificatePage = () => {
   const { courseId } = useParams();
@@ -11,15 +12,8 @@ const CertificatePage = () => {
   const [notification, setNotification] = useState({ message: '', type: 'success' });
   const [loading, setLoading] = useState(false);
 
-  // Dummy data with specific values
-  const dummyCourse = {
-    id: '101 ouwdiougwfiugiy', // Fixed course number
-    title: '123 React for Beginners', // Fixed course title
-    duration: '15 hours',
-  };
-  const userName = 'Pon Dhuri'; // Replace with actual user data if available
-  const instructorName = 'Jon Joe'; // Fixed instructor name
-  const certificateImagePath = '/images/Certificate/Certificate_Template.png'; // Ensure this matches your public folder
+  // Load data from JSON
+  const { dummyCourse, userName, instructorName, certificateImagePath, completedOn } = certificateData;
 
   useEffect(() => {
     setLoading(true);
@@ -30,16 +24,8 @@ const CertificatePage = () => {
   }, [courseId]);
 
   useEffect(() => {
-    gsap.fromTo(
-      '.certificate-container',
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
-    );
-    gsap.fromTo(
-      '.action-button',
-      { opacity: 0, scale: 0.95 },
-      { opacity: 1, scale: 1, duration: 0.4, ease: 'power2.out', delay: 0.5 }
-    );
+    gsap.fromTo('.content-container', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' });
+    gsap.fromTo('.action-button', { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 0.4, ease: 'power2.out', delay: 0.3 });
   }, []);
 
   const handleDownload = () => {
@@ -48,69 +34,47 @@ const CertificatePage = () => {
     const img = new Image();
     img.src = certificateImagePath;
     img.onload = () => {
-      // Get actual image size in pixels
       const templateWidthPx = img.width;
       const templateHeightPx = img.height;
-
-      // Convert pixels → millimeters (1px = 0.264583 mm)
       const mmPerPx = 0.264583;
       const pdfWidth = templateWidthPx * mmPerPx;
       const pdfHeight = templateHeightPx * mmPerPx;
 
-      // Create PDF with exact same size as image
       const doc = new jsPDF({
         orientation: pdfWidth > pdfHeight ? 'landscape' : 'portrait',
         unit: 'mm',
         format: [pdfWidth, pdfHeight],
       });
 
-      // Add image exactly covering full page
       doc.addImage(img, 'PNG', 0, 0, pdfWidth, pdfHeight);
 
-      
-      for (let y = 50; y < pdfHeight; y += 50) {
-        doc.setFontSize(10);
-        doc.text(`${y}`, 20, y);
-      }
-      for (let x = 50; x < pdfWidth; x += 50) {
-        doc.setFontSize(10);
-        doc.text(`${x}`, x, 20);
-      }
-     
-
-      // === Add Text Overlay (adjust X/Y to align perfectly with template) ===
       doc.setFont('helvetica', 'normal');
-
-      // Certificate Number & URL (top-right)
       doc.setFontSize(75);
-      doc.setTextColor(10, 48, 98); // #0a3062 in RGB
+      doc.setTextColor(10, 48, 98);
       doc.text(` ${dummyCourse.id}`, pdfWidth - 480, 75, { align: 'left' });
       doc.text(`lmsplatform.com/certificate/${dummyCourse.id}`, pdfWidth - 610, 125, { align: 'left' });
 
-      // Student name (big & bold, neon-pink)
       doc.setFont('helvetica', 'bold');
-      doc.setFontSize(220); // Larger font for prominence
-      doc.setTextColor(255, 0, 255); // --neon-pink (#FF00FF)
+      doc.setFontSize(220);
+      doc.setTextColor(10, 47, 97);
       doc.text(userName, 120, 690);
 
-      // Course title (slightly smaller, electric-blue)
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(95); // Moderate size
-      doc.setTextColor(0, 255, 255); // --electric-blue (#00FFFF)
-      doc.text(`${dummyCourse.title} `, pdfWidth - 960, 758, { align: 'center' });
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(95);
+      doc.setTextColor(10, 47, 97);
+      doc.text(`${dummyCourse.title}`, pdfWidth - 990, 759, { align: 'center' });
 
-      // Instructor (smaller, acid-green)
-      doc.setFontSize(25); // Smaller size
-      doc.setTextColor(57, 255, 20); // --acid-green (#39FF14)
-      doc.text(`Instructor: ${instructorName}`, 350, 850);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(100);
+      doc.setTextColor(10, 47, 97);
+      doc.text(`: ${instructorName}`, 330, 853);
 
-      // Date & Duration (bottom-left, original black)
-      doc.setFontSize(22);
-      doc.setTextColor(0, 0, 0); // Black for readability
-      doc.text(`Date: 25-09-2025`, 200, pdfHeight - 200);
-      doc.text(`Length: ${dummyCourse.duration}`, 200, pdfHeight - 160);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(95);
+      doc.setTextColor(10, 47, 97);
+      doc.text(`: ${completedOn}`, 200, pdfHeight - 101);
+      doc.text(`: ${dummyCourse.duration}`, 230, pdfHeight - 43);
 
-      // Save file
       const fileName = `Certificate_${dummyCourse.id}_${userName.replace(/\s+/g, '_')}_${Date.now()}.pdf`;
       doc.save(fileName);
 
@@ -128,51 +92,59 @@ const CertificatePage = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-[#0A0A23] to-[#1A1A2E]">
-        <div className="text-[#F5F5F5] text-lg animate-pulse">Loading...</div>
+      <div className="flex justify-center items-center min-h-screen bg-[var(--main-bg)]">
+        <div className="text-[var(--white-smoke)] text-lg font-semibold animate-pulse">Loading Certificate...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0A0A23] to-[#1A1A2E] text-[#F5F5F5] py-16 lg:py-20">
-      <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#9B00FA]/20 via-[#00B7EB]/20 to-[#00FF85]/20 animate-pulse rounded-xl"></div>
-        <div className="relative z-10 p-10 bg-[#0A0A23]/80 rounded-xl shadow-[0_0_30px_rgba(0,183,235,0.6)] border border-[#00B7EB]/30 backdrop-blur-md">
-          <h1 className="text-5xl font-extrabold text-[#00B7EB] [text-shadow:0_0_25px_rgba(0,183,235,0.9)] text-center mb-12">
-            Certificate Preview
+    <div className="min-h-screen bg-[var(--main-bg)] text-[var(--white-smoke)] py-12 sm:py-16">
+      <div className="content-container container mx-auto px-4 sm:px-6 max-w-3xl">
+        <div className="bg-[var(--dark-charcoal)] rounded-lg p-6 sm:p-8 border border-[var(--neon-purple)]/30 shadow-[0_0_10px_var(--pink-glow)]">
+          <h1 className="text-3xl sm:text-4xl font-bold text-[var(--neon-pink)] mb-6 text-center">
+            Congratulations on Your Achievement!
           </h1>
-          <div className="text-center mb-12">
-            <p className="text-3xl font-semibold text-[#00FF85] [text-shadow:0_0_10px_rgba(0,255,133,0.7)]">
-              Presented to: {userName}
+          <div className="prose prose-invert max-w-none">
+            <p className="text-lg sm:text-xl text-[var(--white-smoke)] mb-4">
+              We're thrilled to celebrate your completion of{' '}
+              <span className="text-[var(--electric-blue)] font-semibold">{dummyCourse.title}</span>!
+            </p>
+            <p className="text-base sm:text-lg text-[var(--white-smoke)] opacity-80 mb-4">
+              Awarded to: <span className="text-[var(--acid-green)]">{userName}</span>
+            </p>
+            <p className="text-base sm:text-lg text-[var(--white-smoke)] opacity-80 mb-4">
+              Instructor: <span className="text-[var(--acid-green)]">{instructorName}</span>
+            </p>
+            <p className="text-base sm:text-lg text-[var(--white-smoke)] opacity-80 mb-6">
+              Completed on: <span className="text-[var(--acid-green)]">{completedOn}</span> | Duration:{' '}
+              <span className="text-[var(--acid-green)]">{dummyCourse.duration}</span>
+            </p>
+            <p className="text-base sm:text-lg text-[var(--white-smoke)] opacity-80 mb-8">
+              Your certificate is ready for download. Share your achievement with your network and continue your learning journey with us!
             </p>
           </div>
-          <div className="flex justify-center gap-8">
+          <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
             <Button
               variant="primary"
               onClick={handleDownload}
               disabled={loading}
               loading={loading}
-              className="px-10 py-4 bg-gradient-to-r from-[#9B00FA] to-[#00FF85] text-[#F5F5F5] font-bold rounded-xl shadow-lg hover:shadow-[0_0_40px_rgba(155,0,250,0.8)] transition-all duration-300 text-xl"
+              className="action-button px-6 py-3 bg-[var(--neon-pink)] text-[var(--dark-charcoal)] font-semibold rounded-md hover:bg-[var(--electric-blue)] hover:text-[var(--white-smoke)] transition-all duration-300"
             >
               Download Certificate
             </Button>
-            <Button
-              variant="primary"
+            <button
               onClick={() => navigate(`/course/${courseId || '101'}`)}
               disabled={loading}
-              className="px-10 py-4 bg-gradient-to-r from-[#9B00FA] to-[#00FF85] text-[#F5F5F5] font-bold rounded-xl shadow-lg hover:shadow-[0_0_40px_rgba(155,0,250,0.8)] transition-all duration-300 text-xl"
+              className="action-button px-6 py-3 text-[var(--aqua-glow)] font-semibold hover:text-[var(--neon-purple)] transition-all duration-300"
             >
               Back to Course
-            </Button>
+            </button>
           </div>
         </div>
       </div>
-      <Notification
-        message={notification.message}
-        type={notification.type}
-        onClose={() => setNotification({ message: '', type: 'success' })}
-      />
+      <Notification message={notification.message} type={notification.type} onClose={() => setNotification({ message: '', type: 'success' })} />
     </div>
   );
 };

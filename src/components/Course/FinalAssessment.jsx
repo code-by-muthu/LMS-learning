@@ -1,223 +1,130 @@
-import React, { useState, useEffect } from 'react';
-import { gsap } from 'gsap';
-import Button from '../ui/Button';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Notification from './Notification';
 
 const FinalAssessment = ({ assessment, onComplete }) => {
   const navigate = useNavigate();
-  const [selectedAnswers, setSelectedAnswers] = useState({});
-  const [submitted, setSubmitted] = useState(false);
-  const [score, setScore] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [score, setScore] = useState(0);
+  const [assessmentCompleted, setAssessmentCompleted] = useState(false);
+  const [notification, setNotification] = useState({ message: '', type: 'success' });
 
-  useEffect(() => {
-    if (!assessment || !assessment.questions) {
-      setError('Assessment data is missing or invalid.');
-      console.error('Assessment prop is invalid:', assessment);
-      return;
-    }
-    console.log('Assessment prop:', assessment);
-  }, [assessment]);
-
-  useEffect(() => {
-    gsap.fromTo(
-      '.question-item',
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.1 }
-    );
-    gsap.fromTo(
-      '.action-button',
-      { opacity: 0, scale: 0.95 },
-      { opacity: 1, scale: 1, duration: 0.4, ease: 'power2.out', delay: 0.5 }
-    );
-  }, []);
-
-  const handleAnswerSelect = (questionId, answer) => {
-    setSelectedAnswers({ ...selectedAnswers, [questionId]: answer });
+  const handleAnswerSelect = (answer) => {
+    setSelectedAnswer(answer);
   };
 
   const handleSubmit = () => {
-    const questions = assessment?.questions || [];
-    if (!questions.length) {
-      onComplete(null, 'Assessment data is invalid or no questions available.');
-      setError('No questions available for this assessment.');
-      return;
-    }
-    if (Object.keys(selectedAnswers).length !== questions.length) {
-      onComplete(null, 'Please answer all questions before submitting.');
-      setError('Please answer all questions before submitting.');
+    if (selectedAnswer === null) {
+      setNotification({ message: 'Please select an answer.', type: 'error' });
       return;
     }
 
-    setLoading(true);
-    setTimeout(() => {
-      let correct = 0;
-      questions.forEach((question) => {
-        if (selectedAnswers[question.id] === question.correctAnswer) {
-          correct += 1;
-        }
-      });
-      const finalScore = (correct / questions.length) * 100;
-      setScore(finalScore);
-      setSubmitted(true);
-      setLoading(false);
-      onComplete(Object.values(selectedAnswers), finalScore >= 70 ? 'Success' : 'Failure');
-    }, 1000);
-  };
+    const isCorrect = selectedAnswer === assessment.questions[currentQuestionIndex].correctAnswer;
+    if (isCorrect) {
+      setScore(score + 1);
+    }
 
-  const handleDownloadCertificate = () => {
-    setLoading(true);
-    setTimeout(() => {
-      console.log('Downloading certificate for assessment:', assessment.id);
-      navigate(`/certificate/${assessment.courseId}`);
-      setLoading(false);
-    }, 1000);
+    if (currentQuestionIndex < assessment.questions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      setSelectedAnswer(null);
+    } else {
+      const finalScore = ((score + (isCorrect ? 1 : 0)) / assessment.questions.length) * 100;
+      setAssessmentCompleted(true);
+      if (finalScore >= 70) {
+        assessment.passed = true;
+        onComplete(finalScore);
+      } else {
+        setNotification({
+          message: `You scored ${Math.round(finalScore)}%. A score of 70% or higher is required to pass.`,
+          type: 'error',
+        });
+        onComplete(finalScore);
+      }
+    }
   };
 
   const handleRetry = () => {
-    setSelectedAnswers({});
-    setSubmitted(false);
-    setScore(null);
-    setError(null);
+    setCurrentQuestionIndex(0);
+    setScore(0);
+    setSelectedAnswer(null);
+    setAssessmentCompleted(false);
+    setNotification({ message: '', type: 'success' });
   };
 
-  const isSubmitDisabled = () => {
-    const questions = assessment?.questions || [];
-    return (
-      loading ||
-      !questions.length ||
-      Object.keys(selectedAnswers).length !== questions.length ||
-      questions.some((question) => !selectedAnswers[question.id])
-    );
+  const handleReturnToCourse = () => {
+    navigate(`/course/${assessment.courseId}/learn`);
   };
-
-  if (error) {
-    return (
-      <div className="flex justify-center items-center min-h-screen bg-[#0A0A23]">
-        <div className="text-[#FF00A0] text-lg font-medium [text-shadow:0_0_8px_rgba(255,0,160,0.5)]">
-          Error: {error}
-        </div>
-      </div>
-    );
-  }
-
-  if (!assessment || !assessment.questions) {
-    return (
-      <div className="flex justify-center items-center min-h-screen bg-[#0A0A23]">
-        <div className="text-[#FF00A0] text-lg font-medium [text-shadow:0_0_8px_rgba(255,0,160,0.5)]">
-          No assessment data available.
-        </div>
-      </div>
-    );
-  }
-
-  const questions = assessment.questions || [];
 
   return (
-    <div className="min-h-screen bg-[#0A0A23] text-[#F5F5F5] py-8 sm:py-12 lg:py-16">
-      <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#9B00FA]/10 via-[#00B7EB]/10 to-[#00FF85]/10 animate-pulse"></div>
-        <div className="relative z-10">
-          
-          {questions.length > 0 ? (
-            questions.map((question, index) => (
+    <div className="max-w-3xl mx-auto bg-[var(--dark-charcoal)] rounded-2xl shadow-[0_4px_20px_rgba(0,183,235,0.3)] p-6">
+      <Notification
+        message={notification.message}
+        type={notification.type}
+        onClose={() => setNotification({ message: '', type: 'success' })}
+      />
+      {!assessmentCompleted ? (
+        <div>
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-lg font-semibold text-[var(--white-smoke)]">
+              Question {currentQuestionIndex + 1} of {assessment.questions.length}
+            </h3>
+            <div className="w-1/3 bg-[var(--main-bg)] rounded-full h-2">
               <div
-                key={question.id}
-                className="question-item mb-8 pb-6 border-b border-[#9B00FA]/50"
+                className="bg-gradient-to-r from-[var(--neon-purple)] to-[var(--aqua-glow)] h-2 rounded-full"
+                style={{ width: `${((currentQuestionIndex + 1) / assessment.questions.length) * 100}%` }}
+              ></div>
+            </div>
+          </div>
+          <p className="text-base text-[var(--white-smoke)] mb-4">
+            {assessment.questions[currentQuestionIndex].text}
+          </p>
+          <div className="grid gap-4">
+            {assessment.questions[currentQuestionIndex].options.map((option, index) => (
+              <button
+                key={index}
+                onClick={() => handleAnswerSelect(option)}
+                className={`p-4 rounded-lg text-left text-[var(--white-smoke)] border-2 transition-all duration-300 ${
+                  selectedAnswer === option
+                    ? 'border-[var(--aqua-glow)] bg-gradient-to-r from-[var(--neon-purple)]/20 to-[var(--aqua-glow)]/20'
+                    : 'border-[var(--main-bg)] hover:bg-[var(--neon-purple)]/20'
+                }`}
               >
-                <p className="text-base sm:text-lg font-semibold text-[#F5F5F5] mb-4 [text-shadow:0_0_5px_rgba(0,183,235,0.3)]">
-                  {index + 1}. {question.text}
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {question.options.map((option) => (
-                    <label
-                      key={option}
-                      className={`relative flex items-center p-3 rounded-md text-[#F5F5F5] transition-all duration-300 ${
-                        selectedAnswers[question.id] === option
-                          ? 'bg-gradient-to-r from-[#9B00FA]/50 to-[#00B7EB]/50 border border-[#00B7EB] shadow-[0_0_10px_rgba(0,183,235,0.5)]'
-                          : 'bg-[#0A0A23]/30 hover:bg-gradient-to-r hover:from-[#9B00FA]/20 hover:to-[#00B7EB]/20 hover:shadow-[0_0_8px_rgba(0,183,235,0.3)]'
-                      } ${submitted ? 'cursor-not-allowed opacity-70' : 'cursor-pointer'}`}
-                    >
-                      <input
-                        type="radio"
-                        name={`question-${question.id}`}
-                        value={option}
-                        checked={selectedAnswers[question.id] === option}
-                        onChange={() => handleAnswerSelect(question.id, option)}
-                        disabled={submitted || loading}
-                        className="mr-3 accent-[#00B7EB] w-5 h-5"
-                      />
-                      <span className="text-sm sm:text-base font-medium">{option}</span>
-                    </label>
-                  ))}
-                </div>
-                {submitted && (
-                  <p
-                    className={`mt-3 text-sm font-medium ${
-                      selectedAnswers[question.id] === question.correctAnswer
-                        ? 'text-[#00FF85] [text-shadow:0_0_6px_rgba(0,255,133,0.5)]'
-                        : 'text-[#FF00A0] [text-shadow:0_0_6px_rgba(255,0,160,0.5)]'
-                    }`}
-                  >
-                    {selectedAnswers[question.id] === question.correctAnswer
-                      ? 'Correct!'
-                      : `Incorrect. Correct answer: ${question.correctAnswer}`}
-                  </p>
-                )}
-              </div>
-            ))
-          ) : (
-            <div className="text-[#FF00A0] text-lg font-medium [text-shadow:0_0_8px_rgba(255,0,160,0.5)]">
-              No questions available for this assessment.
-            </div>
-          )}
-          {!submitted && (
-            <Button
-              variant="primary"
-              onClick={handleSubmit}
-              disabled={isSubmitDisabled()}
-              loading={loading}
-              className="action-button w-full mb-8 sm:mb-8 lg:mb-0 sm:w-auto mt-6 bg-gradient-to-r from-[#9B00FA] to-[#00B7EB] text-[#F5F5F5] font-bold rounded-full hover:shadow-[0_0_25px_rgba(0,183,235,0.7)] transition-all duration-300"
-            >
-              Submit Assessment
-            </Button>
-          )}
-          {submitted && (
-            <div className="mt-6 p-6 bg-[#0A0A23]/80 rounded-lg shadow-[0_0_15px_rgba(0,183,235,0.5)]">
-              <p className="text-lg sm:text-xl font-extrabold text-[#00FF85] [text-shadow:0_0_10px_rgba(0,255,133,0.5)]">
-                Your Score: {score?.toFixed(2)}%
-              </p>
-              <p className="text-sm sm:text-base text-[#F5F5F5] opacity-80 mt-2">
-                {score >= 70 ? 'You passed! A certificate is available.' : 'Please review and try again.'}
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3 mt-4">
-                {score >= 70 ? (
-                  <Button
-                    variant="primary"
-                    onClick={handleDownloadCertificate}
-                    disabled={loading}
-                    loading={loading}
-                    className="action-button w-full sm:w-auto bg-gradient-to-r from-[#9B00FA] to-[#00B7EB] text-[#F5F5F5] font-bold rounded-full hover:shadow-[0_0_25px_rgba(0,183,235,0.7)] transition-all duration-300"
-                  >
-                    Download Your Certificate
-                  </Button>
-                ) : (
-                  <Button
-                    variant="secondary"
-                    onClick={handleRetry}
-                    disabled={loading}
-                    loading={loading}
-                    className="action-button w-full sm:w-auto bg-[#0A0A23]/50 border-2 border-[#00B7EB] text-[#F5F5F5] hover:bg-[#00B7EB]/30 transition-all duration-300"
-                  >
-                    Retry
-                  </Button>
-                )}
-              </div>
-            </div>
-          )}
+                {option}
+              </button>
+            ))}
+          </div>
+          <button
+            onClick={handleSubmit}
+            className="mt-6 py-3 px-6 bg-gradient-to-r from-[var(--neon-purple)] to-[var(--aqua-glow)] text-[var(--white-smoke)] font-bold rounded-full hover:shadow-[0_0_20px_rgba(0,183,235,0.5)] transition-all duration-300"
+          >
+            Submit Answer
+          </button>
         </div>
-      </div>
+      ) : (
+        <div className="text-center">
+          <h3 className="text-xl font-bold text-[var(--white-smoke)] mb-4">
+            Assessment Completed!
+          </h3>
+          <p className="text-base text-[var(--white-smoke)] mb-4">
+            Your score: {Math.round((score / assessment.questions.length) * 100)}%
+          </p>
+          <div className="flex justify-center gap-4">
+            <button
+              onClick={handleRetry}
+              className="py-3 px-6 bg-[var(--dark-charcoal)] text-[var(--neon-pink)] font-bold rounded-full hover:bg-[var(--neon-purple)]/20 transition-all duration-300"
+            >
+              Retry Assessment
+            </button>
+            <button
+              onClick={handleReturnToCourse}
+              className="py-3 px-6 bg-gradient-to-r from-[var(--neon-purple)] to-[var(--aqua-glow)] text-[var(--white-smoke)] font-bold rounded-full hover:shadow-[0_0_20px_rgba(0,183,235,0.5)] transition-all duration-300"
+            >
+              Return to Course
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

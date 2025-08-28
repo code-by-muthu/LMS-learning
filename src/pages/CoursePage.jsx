@@ -39,13 +39,13 @@ const CoursePage = () => {
       );
       gsap.fromTo(
         '.left-card',
-        { scale: 0.9, opacity: 0, rotateY: 10 },
-        { scale: 1, opacity: 1, rotateY: 0, duration: 0.8, ease: 'power2.out', delay: 0.3 }
+        { scale: 0.95, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.8, ease: 'power2.out', delay: 0.2 }
       );
       gsap.fromTo(
         '.right-card',
-        { scale: 0.9, opacity: 0, rotateY: -10 },
-        { scale: 1, opacity: 1, rotateY: 0, duration: 0.8, ease: 'power2.out', delay: 0.4 }
+        { scale: 0.95, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.8, ease: 'power2.out', delay: 0.3 }
       );
     }
   }, [course]);
@@ -59,8 +59,11 @@ const CoursePage = () => {
     });
   };
 
+  const isChapterCompleted = (chapterIndex) => {
+    return course?.chapters[chapterIndex]?.topics.every((topic) => topic.completed);
+  };
+
   const startCourse = () => {
-    console.log('Start Course clicked for course ID:', id);
     if (!course) {
       setNotification({ message: 'Course data not loaded.', type: 'error' });
       console.error('Course data is null');
@@ -75,8 +78,29 @@ const CoursePage = () => {
       navigate('/pricing');
       return;
     }
-    console.log('Navigating to /course/', id, '/learn');
     navigate(`/course/${id}/learn`);
+  };
+
+  const handleChapterClick = (chapterId, chapterIndex) => {
+    if (chapterIndex > 0 && !isChapterCompleted(chapterIndex - 1)) {
+      setNotification({
+        message: 'Complete the previous chapter to unlock this one.',
+        type: 'error',
+      });
+      return;
+    }
+    navigate(`/course/${id}/learn?chapter=${chapterId}`);
+  };
+
+  const handleAssessmentClick = (assessmentId, chapterIndex) => {
+    if (!isChapterCompleted(chapterIndex)) {
+      setNotification({
+        message: 'Complete all topics in this chapter to unlock the assessment.',
+        type: 'error',
+      });
+      return;
+    }
+    navigate(`/assessment/${assessmentId}`);
   };
 
   const handleCertificateDownload = () => {
@@ -92,7 +116,6 @@ const CoursePage = () => {
       });
       return;
     }
-    console.log('Navigating to /certificate/', id);
     navigate(`/certificate/${id}`);
   };
 
@@ -107,11 +130,11 @@ const CoursePage = () => {
 
     for (let i = 0; i < 5; i++) {
       if (i < fullStars) {
-        stars.push(<FaStar key={i} className="text-[#00B7EB] text-[14px]" />);
+        stars.push(<FaStar key={i} className="text-[var(--aqua-glow)]" />);
       } else if (i === fullStars && hasHalfStar) {
-        stars.push(<FaStar key={i} className="text-[#00B7EB] opacity-60 text-[14px]" />);
+        stars.push(<FaStar key={i} className="text-[var(--aqua-glow)] opacity-60" />);
       } else {
-        stars.push(<FaStar key={i} className="text-[#F5F5F5] opacity-30 text-[14px]" />);
+        stars.push(<FaStar key={i} className="text-[var(--white-smoke)] opacity-30" />);
       }
     }
     return stars;
@@ -119,147 +142,144 @@ const CoursePage = () => {
 
   if (!course && !notification.message) {
     return (
-      <div className="flex justify-center items-center min-h-screen bg-[#0A0A23]">
-        <div className="text-[#F5F5F5] text-lg">Loading...</div>
+      <div className="flex justify-center items-center min-h-screen bg-[var(--main-bg)]">
+        <div className="text-[var(--white-smoke)] text-lg animate-pulse">Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className="bg-[#0A0A23] min-h-screen text-[#F5F5F5]">
+    <div className="min-h-screen bg-[var(--main-bg)] text-[var(--white-smoke)]">
       <Notification
         message={notification.message}
         type={notification.type}
         onClose={() => setNotification({ message: '', type: 'success' })}
       />
       {course ? (
-        <section className="relative py-8 sm:py-12 lg:py-16 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#9B00FA]/10 via-[#00B7EB]/10 to-[#00FF85]/10 animate-pulse"></div>
-          <div className="absolute inset-0 backdrop-blur-[3px]"></div>
-          <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl course-details">
-            <div className="flex flex-col lg:flex-row gap-8 sm:gap-10">
-              <div className="lg:w-1/3 left-card bg-[#0A0A23] rounded-2xl shadow-[0_0_20px_rgba(0,183,235,0.5)] p-6 flex flex-col gap-6 border-t-4 border-[#9B00FA] hover:shadow-[0_0_30px_rgba(0,183,235,0.7)] transition-all duration-500">
-                <div className="relative group">
-                  <img
-                    src={course.img}
-                    alt={course.title}
-                    className="w-full rounded-lg object-cover h-48 sm:h-56 lg:h-64 group-hover:scale-105 group-hover:shadow-[0_0_25px_rgba(0,183,235,0.7)] transition-all duration-500"
-                    onError={(e) => {
-                      e.target.src = 'https://via.placeholder.com/400x300?text=No+Image';
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A23]/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"></div>
-                </div>
-                <div className="flex flex-col gap-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3 bg-[#0A0A23]/80 rounded-full px-4 py-2 shadow-[0_0_10px_rgba(0,183,235,0.3)]">
-                      <span className="text-sm font-extrabold text-[#00B7EB]">{course.rating}</span>
-                      <div className="flex items-center gap-1">{renderStars(course.rating)}</div>
-                    </div>
-                    <button
-                      onClick={toggleBookmark}
-                      className={`p-3 rounded-full bg-[#0A0A23]/60 border-2 border-[#00B7EB] hover:bg-[#9B00FA] hover:border-[#9B00FA] transition-all duration-300 ${
-                        isBookmarked ? 'text-[#FF00A0]' : 'text-[#F5F5F5]'
-                      }`}
-                    >
-                      <FaHeart className="text-xl" />
-                    </button>
+        <section className="py-12 lg:py-16">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl course-details">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <div className="left-card bg-[var(--dark-charcoal)] rounded-2xl shadow-[0_4px_20px_rgba(0,183,235,0.3)] p-6 flex flex-col gap-6 border-t-4 border-[var(--neon-purple)]">
+                <img
+                  src={course.img}
+                  alt={course.title}
+                  className="w-full rounded-lg object-cover h-56 hover:scale-105 transition-transform duration-300"
+                  onError={(e) => {
+                    e.target.src = 'https://via.placeholder.com/400x300?text=No+Image';
+                  }}
+                />
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center gap-2 bg-[var(--dark-charcoal)] rounded-full px-4 py-2 shadow-[0_0_10px_rgba(0,183,235,0.3)]">
+                    <span className="text-sm font-bold text-[var(--aqua-glow)]">{course.rating}</span>
+                    <div className="flex gap-1">{renderStars(course.rating)}</div>
                   </div>
-                  <div className="flex flex-col gap-2">
-                    <p className="text-sm font-medium text-[#F5F5F5] opacity-90 tracking-wide">
-                      {course.numMembers} learners enrolled
-                    </p>
-                    <p className="text-sm font-semibold text-[#00B7EB] [text-shadow:0_0_5px_rgba(0,183,235,0.5)]">
-                      Created by {course.creator}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <span className="text-2xl font-extrabold text-[#9B00FA] [text-shadow:0_0_10px_rgba(155,0,250,0.6)]">
-                      ₹{course.discountPrice}
-                    </span>
-                    {course.discountPrice < course.price && (
-                      <span className="text-sm text-[#F5F5F5] opacity-50 line-through font-medium">
-                        ₹{course.price}
-                      </span>
-                    )}
-                  </div>
-                  {course.label && (
-                    <span className="bg-gradient-to-r from-[#9B00FA] to-[#00B7EB] text-[#F5F5F5] text-xs font-bold px-4 py-2 rounded-full inline-block tracking-wider">
-                      {course.label}
-                    </span>
-                  )}
                   <button
-                    onClick={startCourse}
-                    className="px-6 py-3 bg-gradient-to-r from-[#9B00FA] to-[#00B7EB] text-[#F5F5F5] font-bold rounded-full hover:shadow-[0_0_25px_rgba(0,183,235,0.7)] transition-all duration-500 w-full text-center tracking-wide"
-                  >
-                    Start Course
-                  </button>
-                  <button
-                    onClick={handleCertificateDownload}
-                    disabled={!isCertificateUnlocked()}
-                    className={`px-6 py-3 text-[#F5F5F5] font-bold rounded-full w-full text-center tracking-wide transition-all duration-300 ${
-                      isCertificateUnlocked()
-                        ? 'bg-gradient-to-r from-[#9B00FA] to-[#00FF85] hover:shadow-[0_0_25px_rgba(0,255,133,0.7)]'
-                        : 'bg-[#0A0A23]/50 opacity-70 cursor-not-allowed'
+                    onClick={toggleBookmark}
+                    className={`p-2 rounded-full bg-[var(--dark-charcoal)] border-2 border-[var(--aqua-glow)] hover:bg-[var(--neon-purple)] transition-all duration-300 ${
+                      isBookmarked ? 'text-[var(--neon-pink)]' : 'text-[var(--white-smoke)]'
                     }`}
                   >
-                    Download Certificate
+                    <FaHeart className="text-lg" />
                   </button>
-                  <div className="mt-2">
-                    <h3 className="text-base font-bold text-[#00B7EB] [text-shadow:0_0_5px_rgba(0,183,235,0.5)] mb-3">
-                      Your Progress
-                    </h3>
-                    <div className="w-full bg-[#0A0A23]/20 rounded-full h-5 overflow-hidden relative">
-                      <div
-                        className="bg-gradient-to-r from-[#9B00FA] to-[#00FF85] h-5 rounded-full transition-all duration-700"
-                        style={{ width: `${course.progress}%` }}
-                      ></div>
-                      <span className="absolute top-0 right-3 text-xs font-semibold text-[#F5F5F5] opacity-90">
-                        {course.progress}%
-                      </span>
-                    </div>
+                </div>
+                <p className="text-sm text-[var(--white-smoke)] opacity-80">
+                  {course.numMembers} learners enrolled
+                </p>
+                <p className="text-sm font-semibold text-[var(--aqua-glow)]">
+                  Created by {course.creator}
+                </p>
+                <div className="flex items-center gap-4">
+                  <span className="text-xl font-bold text-[var(--neon-purple)]">
+                    ₹{course.discountPrice}
+                  </span>
+                  {course.discountPrice < course.price && (
+                    <span className="text-sm text-[var(--white-smoke)] opacity-50 line-through">
+                      ₹{course.price}
+                    </span>
+                  )}
+                </div>
+                {course.label && (
+                  <span className="bg-gradient-to-r from-[var(--neon-purple)] to-[var(--aqua-glow)] text-[var(--white-smoke)] text-xs font-bold px-3 py-1 rounded-full">
+                    {course.label}
+                  </span>
+                )}
+                <button
+                  onClick={startCourse}
+                  className="py-3 bg-gradient-to-r from-[var(--neon-purple)] to-[var(--aqua-glow)] text-[var(--white-smoke)] font-bold rounded-full hover:shadow-[0_0_20px_rgba(0,183,235,0.5)] transition-all duration-300"
+                >
+                  Start Course
+                </button>
+                <button
+                  onClick={handleCertificateDownload}
+                  disabled={!isCertificateUnlocked()}
+                  className={`py-3 rounded-full font-bold transition-all duration-300 ${
+                    isCertificateUnlocked()
+                      ? 'bg-gradient-to-r from-[var(--neon-purple)] to-[var(--acid-green)] hover:shadow-[0_0_20px_rgba(0,255,133,0.5)]'
+                      : 'bg-[var(--dark-charcoal)] opacity-50 cursor-not-allowed'
+                  }`}
+                >
+                  Download Certificate
+                </button>
+                <div className="mt-4">
+                  <h3 className="text-base font-bold text-[var(--aqua-glow)] mb-2">
+                    Your Progress
+                  </h3>
+                  <div className="w-full bg-[var(--dark-charcoal)] rounded-full h-4">
+                    <div
+                      className="bg-gradient-to-r from-[var(--neon-purple)] to-[var(--acid-green)] h-4 rounded-full transition-all duration-500"
+                      style={{ width: `${course.progress}%` }}
+                    ></div>
+                    <span className="text-xs font-semibold text-[var(--white-smoke)] mt-1 block text-right">
+                      {course.progress}% Complete
+                    </span>
                   </div>
                 </div>
               </div>
-              <div className="lg:w-2/3 right-card bg-[#0A0A23] rounded-2xl shadow-[0_0_20px_rgba(0,183,235,0.5)] p-6 flex flex-col gap-6 border-b-4 border-[#9B00FA] hover:shadow-[0_0_30px_rgba(0,183,235,0.7)] transition-all duration-500">
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#F5F5F5] [text-shadow:0_0_15px_rgba(0,183,235,0.5)] tracking-tight">
+              <div className="lg:col-span-2 right-card bg-[var(--dark-charcoal)] rounded-2xl shadow-[0_4px_20px_rgba(0,183,235,0.3)] p-6 flex flex-col gap-6 border-b-4 border-[var(--neon-purple)]">
+                <h1 className="text-3xl lg:text-4xl font-extrabold text-[var(--white-smoke)] [text-shadow:0_0_10px_rgba(0,183,235,0.3)]">
                   {course.title}
                 </h1>
-                <p className="text-base sm:text-lg text-[#F5F5F5] opacity-80 leading-relaxed">
+                <p className="text-base text-[var(--white-smoke)] opacity-80 leading-relaxed">
                   {course.description}
                 </p>
                 <div>
-                  <h3 className="text-lg font-bold text-[#00B7EB] [text-shadow:0_0_5px_rgba(0,183,235,0.5)] mb-4">
+                  <h3 className="text-lg font-bold text-[var(--aqua-glow)] mb-4">
                     Course Content
                   </h3>
-                  {course.chapters.map((chapter) => (
+                  {course.chapters.map((chapter, index) => (
                     <div
                       key={chapter.id}
-                      className="mb-4 bg-[#0A0A23]/80 rounded-lg shadow-[0_0_15px_rgba(0,183,235,0.3)] hover:shadow-[0_0_20px_rgba(0,183,235,0.5)] transition-all duration-300"
+                      className="mb-4 bg-[var(--dark-charcoal)] rounded-lg shadow-[0_0_10px_rgba(0,183,235,0.2)]"
                     >
                       <button
-                        className="w-full flex justify-between items-center p-4 text-left text-[#F5F5F5] hover:bg-[#0A0A23]/50 transition-colors duration-200"
-                        onClick={() => navigate(`/course/${id}/learn?chapter=${chapter.id}`)}
+                        onClick={() => handleChapterClick(chapter.id, index)}
+                        disabled={index > 0 && !isChapterCompleted(index - 1)}
+                        className={`w-full flex justify-between items-center p-4 text-left text-[var(--white-smoke)] hover:bg-[var(--neon-purple)]/20 transition-colors duration-200 ${
+                          index > 0 && !isChapterCompleted(index - 1) ? 'opacity-50 cursor-not-allowed' : ''
+                        }`}
                       >
-                        <span className="text-base font-semibold tracking-wide">{chapter.title}</span>
+                        <span className="text-base font-semibold">{chapter.title}</span>
                       </button>
                       <div className="p-4">
                         {chapter.topics.map((topic) => (
                           <div
                             key={topic.id}
-                            className="py-2 text-sm text-[#F5F5F5] opacity-80 hover:text-[#F5F5F5] hover:opacity-100 transition-all duration-200"
+                            className="py-2 text-sm text-[var(--white-smoke)] opacity-80 hover:opacity-100 transition-all duration-200"
                           >
                             <span>{topic.title}</span>
                             <span className="ml-2">({topic.type})</span>
                             {topic.completed && (
-                              <span className="ml-2 text-[#00FF85] [text-shadow:0_0_5px_rgba(0,255,133,0.5)]">✔</span>
+                              <span className="ml-2 text-[var(--acid-green)]">✔</span>
                             )}
                           </div>
                         ))}
                         {chapter.assessment && (
                           <Link
                             to={`/assessment/${chapter.assessment.id}`}
-                            className="block mt-2 text-[#FF00A0] hover:text-[#00B7EB] transition-colors duration-200"
+                            onClick={() => handleAssessmentClick(chapter.assessment.id, index)}
+                            className={`block mt-2 text-[var(--neon-pink)] hover:text-[var(--aqua-glow)] transition-colors duration-200 ${
+                              !isChapterCompleted(index) ? 'opacity-50 pointer-events-none' : ''
+                            }`}
                           >
                             {chapter.assessment.title}
                           </Link>
@@ -270,7 +290,7 @@ const CoursePage = () => {
                 </div>
                 <button
                   onClick={startCourse}
-                  className="px-6 py-3 bg-gradient-to-r from-[#9B00FA] to-[#00B7EB] text-[#F5F5F5] font-bold rounded-full hover:shadow-[0_0_25px_rgba(0,183,235,0.7)] transition-all duration-500 w-full sm:w-auto text-center tracking-wide"
+                  className="py-3 bg-gradient-to-r from-[var(--neon-purple)] to-[var(--aqua-glow)] text-[var(--white-smoke)] font-bold rounded-full hover:shadow-[0_0_20px_rgba(0,183,235,0.5)] transition-all duration-300"
                 >
                   Start Course
                 </button>
@@ -279,8 +299,8 @@ const CoursePage = () => {
           </div>
         </section>
       ) : (
-        <div className="flex justify-center items-center min-h-screen bg-[#0A0A23]">
-          <div className="text-[#FF00A0] text-lg">Error: {notification.message}</div>
+        <div className="flex justify-center items-center min-h-screen bg-[var(--main-bg)]">
+          <div className="text-[var(--neon-pink)] text-lg">{notification.message}</div>
         </div>
       )}
     </div>

@@ -16,7 +16,7 @@ const Assessment = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch('/data/assessments_1.json')
+    fetch('/data/assessments/assessments_1.json')
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Failed to fetch assessments: ${response.status} ${response.statusText}`);
@@ -48,38 +48,23 @@ const Assessment = () => {
     }
   }, [assessment]);
 
-  const handleComplete = (userAnswers, errorMessage) => {
+  const handleComplete = (finalScore) => {
     if (!assessment) return;
 
-    if (errorMessage) {
-      setNotification({ message: errorMessage, type: 'error' });
-      return;
-    }
-
-    let correctCount = 0;
-    const totalQuestions = assessment.type === 'quiz' ? assessment.quiz.questions.length : assessment.questions.length;
-    const questions = assessment.type === 'quiz' ? assessment.quiz.questions : assessment.questions;
-
-    questions.forEach((q, index) => {
-      if (userAnswers && userAnswers[index] === q.correctAnswer) {
-        correctCount++;
-      }
-    });
-
-    const finalScore = (correctCount / totalQuestions) * 100;
     setScore(finalScore);
 
-    console.log('Submitting score:', { assessmentId: id, score: finalScore, userAnswers });
+    console.log('Submitting score:', { assessmentId: id, score: finalScore });
 
     setNotification({
       message: `Assessment completed! Your score: ${finalScore.toFixed(2)}%`,
       type: finalScore >= 70 ? 'success' : 'error',
     });
 
-    if (assessment.type === 'final' && finalScore >= 70) {
-      setTimeout(() => navigate(`/certificate/${assessment.courseId}`), 2000);
-    } else if (assessment.type === 'quiz' && finalScore >= 70) {
+    if (finalScore >= 70) {
       setTimeout(() => navigate(`/course/${assessment.courseId}/learn`), 2000);
+      if (assessment.type === 'final') {
+        setTimeout(() => navigate(`/certificate/${assessment.courseId}`), 2000);
+      }
     }
   };
 
@@ -107,16 +92,22 @@ const Assessment = () => {
         onClose={() => setNotification({ message: '', type: 'success' })}
       />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl assessment-container">
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[var(--neon-purple)] [text-shadow:0_0_15px_var(--pink-glow)] mb-6 uppercase tracking-wide">
-          {assessment.title}
-        </h1>
+        {/* Hero Section */}
+        <section className="mb-8 bg-gradient-to-r from-[var(--neon-purple)] to-[var(--aqua-glow)] rounded-2xl shadow-[0_0_20px_rgba(0,183,235,0.5)] p-6 text-center">
+          <h1 className="text-3xl lg:text-4xl font-extrabold text-[var(--white-smoke)] [text-shadow:0_0_12px_var(--pink-glow)] uppercase tracking-wide">
+            {assessment.title}
+          </h1>
+          <p className="text-base text-[var(--white-smoke)] opacity-80 mt-2">
+            Test your {assessment.type === 'quiz' ? 'chapter knowledge' : 'course mastery'}! Score 70% or higher to pass.
+          </p>
+        </section>
         {assessment.type === 'final' ? (
           <FinalAssessment assessment={assessment} onComplete={handleComplete} />
         ) : (
           <QuizComponent quiz={assessment} onComplete={handleComplete} />
         )}
         {score !== null && (
-          <div className="mt-6 p-4 sm:p-5 bg-[var(--dark-charcoal)]/80 rounded-lg border-2 border-[var(--neon-pink)] shadow-[0_0_12px_var(--pink-glow)]">
+          <div className="mt-6 p-4 sm:p-5 bg-[var(--dark-charcoal)] rounded-lg border-2 border-[var(--neon-pink)] shadow-[0_0_12px_var(--pink-glow)]">
             <p className="text-lg sm:text-xl font-extrabold text-[var(--acid-green)] [text-shadow:0_0_8px_var(--blue-glow)]">
               Your Score: {score.toFixed(2)}%
             </p>
