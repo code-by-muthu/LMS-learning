@@ -15,7 +15,7 @@ const Sidebar = ({ setIsSidebarOpen }) => {
     { name: 'Home', icon: <FaHome />, path: '/' },
     { name: 'All Courses', icon: <FaBook />, path: '/courses' },
     { name: 'My Learning', icon: <FaUserGraduate />, path: '/profile' },
-    { name: 'Pricing', icon: <FaTags />, path: '/pricing' },
+    { name: 'calendar', icon: <FaTags />, path: '/calendar' },
     { name: 'Support', icon: <FaHeadset />, path: '/support' },
     { name: 'Terms & Conditions', icon: <FaFileContract />, path: '/terms' },
   ];

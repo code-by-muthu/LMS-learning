@@ -17,23 +17,32 @@ const LearningLayout = () => {
   const [notification, setNotification] = useState({ message: '', type: 'success' });
 
   useEffect(() => {
-    fetch(`/data/courses/course_${id}.json`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Failed to fetch course data: ${response.status} ${response.statusText}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setCourse(data);
-        setCurrentTopic(data.chapters[0]?.topics[0] || null);
-        updateProgress(data);
-      })
-      .catch((err) => {
-        console.error('Fetch error:', err);
-        setNotification({ message: err.message, type: 'error' });
-      });
-  }, [id]);
+  const savedProgress = localStorage.getItem(`course_${id}_progress`);
+  fetch(`/data/courses/course_${id}.json`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Failed to fetch course data: ${response.status} ${response.statusText}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      const restoredCourse = savedProgress ? JSON.parse(savedProgress) : data;
+      console.log('Loaded/restored course data:', restoredCourse);  // Debug log
+      setCourse(restoredCourse);
+      setCurrentTopic(restoredCourse.chapters[0]?.topics[0] || null);
+      updateProgress(restoredCourse);
+    })
+    .catch((err) => {
+      console.error('Fetch error:', err);
+      setNotification({ message: err.message, type: 'error' });
+    });
+}, [id]);
+
+  useEffect(() => {
+    if (course) {
+      localStorage.setItem(`course_${id}_progress`, JSON.stringify(course));
+    }
+  }, [course, id]);
 
   const updateProgress = (data = course) => {
     if (!data) return;
@@ -47,6 +56,10 @@ const LearningLayout = () => {
 
   const isChapterCompleted = (chapterIndex) => {
     return course?.chapters[chapterIndex]?.topics.every((topic) => topic.completed);
+  };
+
+  const areAllPriorQuizzesPassed = () => {
+    return course.chapters.every((chapter, idx) => idx === course.chapters.length - 1 || (chapter.assessment?.passed ?? true));
   };
 
   const handleTopicCompletion = () => {
@@ -80,7 +93,7 @@ const LearningLayout = () => {
         });
       }
     } else {
-      setNotification({ message: 'You have completed the course!', type: 'success' });
+      setNotification({ message: 'Course completed! Check for final assessment.', type: 'success' });
     }
   };
 
@@ -103,6 +116,14 @@ const LearningLayout = () => {
       });
       return;
     }
+    // For final assessment, check all prior quizzes passed
+    if (course.chapters[currentChapterIndex].assessment?.type === 'final' && !areAllPriorQuizzesPassed()) {
+      setNotification({
+        message: 'Pass all previous chapter quizzes to unlock the final assessment.',
+        type: 'error',
+      });
+      return;
+    }
     navigate(`/assessment/${assessmentId}`);
   };
 
@@ -117,8 +138,6 @@ const LearningLayout = () => {
       </div>
     );
   }
-
-  const isQuizChapter = currentChapterIndex >= course.chapters.length - 2; // Chapters 2 and 3
 
   return (
     <div className="flex min-h-screen bg-[var(--main-bg)]">
@@ -163,7 +182,7 @@ const LearningLayout = () => {
             }
             isTopicCompleted={currentTopic?.completed || false}
             onAssessmentClick={handleAssessmentClick}
-            assessment={isQuizChapter ? course.chapters[currentChapterIndex].assessment : null}
+            assessment={course.chapters[currentChapterIndex].assessment}
           />
         </div>
       </div>

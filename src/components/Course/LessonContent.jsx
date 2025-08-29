@@ -10,6 +10,16 @@ const LessonContent = ({ topic, onComplete }) => {
     onComplete();
   };
 
+  const handlePdfComplete = () => {
+    // Assume user scrolls to end or clicks complete
+    onComplete();
+  };
+
+  const handleSlideComplete = () => {
+    // Assume user views all slides
+    onComplete();
+  };
+
   return (
     <div className="bg-[var(--dark-charcoal)] p-6 rounded-xl border-2 border-[var(--electric-blue)] shadow-[0_0_20px_var(--blue-glow)]">
       <div className="flex justify-between items-center mb-4">
@@ -40,6 +50,35 @@ const LessonContent = ({ topic, onComplete }) => {
             {!topic.completed && (
               <button
                 onClick={handleTextComplete}
+                className="mt-4 py-2 px-6 bg-gradient-to-r from-[var(--neon-purple)] to-[var(--aqua-glow)] text-[var(--white-smoke)] font-bold rounded-full hover:shadow-[0_0_20px_var(--blue-glow)] transition-all duration-300"
+              >
+                Mark as Completed
+              </button>
+            )}
+          </div>
+        )}
+        {topic.type === 'pdf' && (
+          <div className="bg-[var(--main-bg)]/50 p-4 rounded-lg">
+            <embed src={topic.content} type="application/pdf" width="100%" height="600px" />
+            {!topic.completed && (
+              <button
+                onClick={handlePdfComplete}
+                className="mt-4 py-2 px-6 bg-gradient-to-r from-[var(--neon-purple)] to-[var(--aqua-glow)] text-[var(--white-smoke)] font-bold rounded-full hover:shadow-[0_0_20px_var(--blue-glow)] transition-all duration-300"
+              >
+                Mark as Completed
+              </button>
+            )}
+          </div>
+        )}
+        {topic.type === 'slide' && (
+          <div className="bg-[var(--main-bg)]/50 p-4 rounded-lg">
+            {/* Placeholder for slide carousel; use a library like react-slick in production */}
+            {topic.slides.map((slide, idx) => (
+              <img key={idx} src={slide} alt={`Slide ${idx + 1}`} className="w-full mb-2" />
+            ))}
+            {!topic.completed && (
+              <button
+                onClick={handleSlideComplete}
                 className="mt-4 py-2 px-6 bg-gradient-to-r from-[var(--neon-purple)] to-[var(--aqua-glow)] text-[var(--white-smoke)] font-bold rounded-full hover:shadow-[0_0_20px_var(--blue-glow)] transition-all duration-300"
               >
                 Mark as Completed

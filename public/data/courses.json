@@ -3,69 +3,75 @@
     "id": "1",
     "title": "Python for Everybody",
     "level": "Beginner",
-    "img": "/images/python-everybody.png",
+    "img": "/images/technology.png",
     "category": "Technology & Programming",
     "creator": "John Doe",
     "rating": 4.8,
     "numMembers": 1500,
     "price": 5999,
     "discountPrice": 4999,
-    "label": "Bestseller"
+    "label": "Bestseller",
+    "points": 10
   },
   {
     "id": "2",
-    "title": "JavaScript: The Complete Guide",
-    "level": "Intermediate",
-    "img": "/images/javascript-guide.png",
+    "title": "JavaScript Basics",
+    "level": "Beginner",
+    "img": "/images/javascript.png",
     "category": "Technology & Programming",
     "creator": "Jane Smith",
-    "rating": 4.7,
+    "rating": 4.6,
     "numMembers": 1200,
-    "price": 6999,
-    "discountPrice": 5499
+    "price": 4999,
+    "discountPrice": 3999,
+    "label": "Popular",
+    "points": 8
   },
   {
     "id": "3",
-    "title": "Web Development Bootcamp",
-    "level": "All Levels",
-    "img": "/images/web-dev-bootcamp.png",
+    "title": "React Fundamentals",
+    "level": "Advanced",
+    "img": "/images/react.png",
     "category": "Technology & Programming",
-    "creator": "Alex Brown",
+    "creator": "Alex Johnson",
     "rating": 4.9,
-    "numMembers": 2000,
-    "price": 7999,
-    "discountPrice": 6499,
-    "label": "Top Rated"
+    "numMembers": 800,
+    "price": 6999,
+    "discountPrice": 5999,
+    "label": "New",
+    "points": 12
   },
   {
     "id": "4",
     "title": "React & Node.js Full-Stack Development",
     "level": "Advanced",
-    "img": "/images/react-node.png",
+    "img": "/images/language.png",
     "category": "Technology & Programming",
     "creator": "Emily Davis",
     "rating": 4.6,
     "numMembers": 800,
     "price": 7499,
     "discountPrice": 5999
+    , "points": 10 
   },
   {
     "id": "5",
     "title": "Data Structures & Algorithms in C++",
     "level": "Intermediate",
-    "img": "/images/data-structures.png",
+    "img": "/images/health-fitness.png",
     "category": "Technology & Programming",
     "creator": "Michael Lee",
     "rating": 4.7,
     "numMembers": 1000,
     "price": 6499,
     "discountPrice": 5299
+    , "points": 10 
   },
   {
     "id": "6",
     "title": "Digital Marketing Masterclass",
     "level": "All Levels",
-    "img": "/images/digital-marketing.png",
+    "img": "/images/design.png",
     "category": "Business & Management",
     "creator": "Sarah Wilson",
     "rating": 4.8,
@@ -73,30 +79,33 @@
     "price": 6999,
     "discountPrice": 5499,
     "label": "Most Popular"
+    , "points": 10 
   },
   {
     "id": "7",
     "title": "Financial Accounting Fundamentals",
     "level": "Beginner",
-    "img": "/images/accounting.png",
+    "img": "/images/data-science.png",
     "category": "Business & Management",
     "creator": "David Kim",
     "rating": 4.5,
     "numMembers": 900,
     "price": 5499,
     "discountPrice": 4499
+    , "points": 10 
   },
   {
     "id": "8",
     "title": "Entrepreneurship: Launch Your Startup",
     "level": "Intermediate",
-    "img": "/images/entrepreneurship.png",
+    "img": "/images/business.png",
     "category": "Business & Management",
     "creator": "Laura Adams",
     "rating": 4.7,
     "numMembers": 1100,
     "price": 6499,
     "discountPrice": 5299
+    , "points": 10 
   },
   {
     "id": "9",

@@ -51,6 +51,7 @@ const SidebarNavigation = ({
           <button
             onClick={() => toggleChapter(chapterIdx)}
             disabled={!isChapterUnlocked(chapterIdx)}
+            title={!isChapterUnlocked(chapterIdx) ? 'Complete previous chapter to unlock' : ''}
             className={`w-full flex justify-between items-center p-3 text-left rounded-lg transition-all duration-300 ${
               !isChapterUnlocked(chapterIdx)
                 ? 'opacity-50 cursor-not-allowed text-[var(--white-smoke)]'
@@ -70,6 +71,14 @@ const SidebarNavigation = ({
                 <li
                   key={topic.id}
                   onClick={() => handleTopicClick(chapterIdx, topicIdx)}
+                  title={
+                    !isChapterUnlocked(chapterIdx) ||
+                    (chapterIdx === currentChapterIndex &&
+                      topicIdx > currentTopicIndex &&
+                      !chapters[chapterIdx].topics[currentTopicIndex].completed)
+                      ? 'Complete previous topic to unlock'
+                      : ''
+                  }
                   className={`cursor-pointer text-sm p-2 rounded transition-all duration-300 ${
                     !isChapterUnlocked(chapterIdx) ||
                     (chapterIdx === currentChapterIndex &&
@@ -90,6 +99,7 @@ const SidebarNavigation = ({
               {chapter.assessment && (
                 <li
                   onClick={() => isAssessmentUnlocked(chapterIdx) && onAssessmentClick(chapter.assessment.id)}
+                  title={!isAssessmentUnlocked(chapterIdx) ? 'Complete all topics to unlock assessment' : ''}
                   className={`cursor-pointer text-sm p-2 rounded transition-all duration-300 ${
                     !isAssessmentUnlocked(chapterIdx)
                       ? 'opacity-50 cursor-not-allowed text-[var(--neon-pink)]'

@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Notification from './Notification';
 
-const QuizComponent = ({ quiz, onComplete }) => {
+const QuizComponent = ({ quiz, onComplete, maxRetries = Infinity }) => {
   const navigate = useNavigate();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [score, setScore] = useState(0);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [notification, setNotification] = useState({ message: '', type: 'success' });
+  const [retryCount, setRetryCount] = useState(0);
 
   const handleAnswerSelect = (answer) => {
     setSelectedAnswer(answer);
@@ -31,12 +32,12 @@ const QuizComponent = ({ quiz, onComplete }) => {
     } else {
       const finalScore = ((score + (isCorrect ? 1 : 0)) / quiz.questions.length) * 100;
       setQuizCompleted(true);
-      if (finalScore >= 70) {
+      if (finalScore >= 60) {  // Changed to 60%
         quiz.passed = true;
         onComplete(finalScore);
       } else {
         setNotification({
-          message: `You scored ${Math.round(finalScore)}%. A score of 70% or higher is required to pass.`,
+          message: `You scored ${Math.round(finalScore)}%. A score of 60% or higher is required to pass.`,
           type: 'error',
         });
         onComplete(finalScore);
@@ -45,6 +46,11 @@ const QuizComponent = ({ quiz, onComplete }) => {
   };
 
   const handleRetry = () => {
+    if (retryCount >= maxRetries) {
+      setNotification({ message: 'Maximum retries reached. Please review the material.', type: 'error' });
+      return;
+    }
+    setRetryCount(retryCount + 1);
     setCurrentQuestionIndex(0);
     setScore(0);
     setSelectedAnswer(null);

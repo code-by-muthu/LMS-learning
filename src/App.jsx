@@ -17,6 +17,8 @@ import Assessment from './pages/Assessment';
 import PricingPage from './pages/PricingPage';
 import CertificatePage from './pages/CertificatePage';
 import Wishlist from './pages/Wishlist';
+import Dashboard from './pages/Dashboard';
+import LearningCalendar from './pages/LearningCalendar';
 
 import './App.css';
 
@@ -29,6 +31,7 @@ function App() {
           <Routes>
             {/* Core Routes */}
             <Route path="/" element={<Home />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/signin" element={<SignInPage />} />
             <Route path="/signup" element={<SignUpPage />} />
@@ -50,6 +53,9 @@ function App() {
 
             {/* Wishlist Route */}
             <Route path="/wishlist" element={<Wishlist />} />
+
+            {/* sidebar  Route */}
+            <Route path="/calendar" element={<LearningCalendar />} />
           </Routes>
         </main>
       </div>

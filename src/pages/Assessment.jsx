@@ -16,7 +16,8 @@ const Assessment = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch('/data/assessments/assessments_1.json')
+    // For now, fixed file; if per-course, change to `/data/assessments/assessments_${courseId}.json` after loading course or passing prop
+    fetch('/data/assessments/assessments_py101.json')  // Updated to match renamed file
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Failed to fetch assessments: ${response.status} ${response.statusText}`);
@@ -57,10 +58,10 @@ const Assessment = () => {
 
     setNotification({
       message: `Assessment completed! Your score: ${finalScore.toFixed(2)}%`,
-      type: finalScore >= 70 ? 'success' : 'error',
+      type: finalScore >= 60 ? 'success' : 'error',
     });
 
-    if (finalScore >= 70) {
+    if (finalScore >= 60) {
       setTimeout(() => navigate(`/course/${assessment.courseId}/learn`), 2000);
       if (assessment.type === 'final') {
         setTimeout(() => navigate(`/certificate/${assessment.courseId}`), 2000);
@@ -98,7 +99,7 @@ const Assessment = () => {
             {assessment.title}
           </h1>
           <p className="text-base text-[var(--white-smoke)] opacity-80 mt-2">
-            Test your {assessment.type === 'quiz' ? 'chapter knowledge' : 'course mastery'}! Score 70% or higher to pass.
+            Test your {assessment.type === 'quiz' ? 'chapter knowledge' : 'course mastery'}! Score 60% or higher to pass.
           </p>
         </section>
         {assessment.type === 'final' ? (
@@ -112,7 +113,7 @@ const Assessment = () => {
               Your Score: {score.toFixed(2)}%
             </p>
             <p className="text-sm sm:text-base text-[var(--white-smoke)] opacity-80 mt-2">
-              {score >= 70 ? 'Congratulations! You passed.' : 'Please review and try again.'}
+              {score >= 60 ? 'Congratulations! You passed.' : 'Please review and try again.'}
             </p>
           </div>
         )}
