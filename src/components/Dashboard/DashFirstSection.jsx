@@ -1,20 +1,21 @@
+
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { FaBookOpen, FaChalkboardTeacher,FaTrophy , FaMedal,FaUserCircle ,FaBolt,FaChartLine} from "react-icons/fa";
 import { GiLevelEndFlag } from "react-icons/gi";
-
  
-
+ 
+ 
 const DashFirstSection = () => {
   const [courses, setCourses] = useState([
     { id: "1", title: "Python for Everybody", progress: 20, duration: "15 hours", img: "/images/technology.png", points: 10 },
-    { id: "2", title: "JavaScript Basics", progress: 50, duration: "10 hours", img: "/images/javascript.png", points: 8 },
-    { id: "3", title: "React Fundamentals", progress: 75, duration: "12 hours", img: "/images/react.png", points: 12 },
-    { id: "ai101", title: "AI Introduction", progress: 30, duration: "20 hours", img: "/images/ai.png", points: 15 },
-    { id: "web101", title: "Web Development", progress: 60, duration: "18 hours", img: "/images/webdev.png", points: 10 },
+    { id: "2", title: "JavaScript Basics", progress: 50, duration: "10 hours", img: "/images/science-engineering.png", points: 8 },
+    { id: "3", title: "React Fundamentals", progress: 75, duration: "12 hours", img: "/images/design.png", points: 12 },
+    { id: "ai101", title: "AI Introduction", progress: 30, duration: "20 hours", img: "/images/data-science.png", points: 15 },
+    { id: "web101", title: "Web Development", progress: 60, duration: "18 hours", img: "/images/personal-development.png", points: 10 },
   ]);
-
+ 
   const userProgress = {
     level: 8,
     experiencePoints: 2750,
@@ -25,7 +26,7 @@ const DashFirstSection = () => {
     dailyGoal: 20,
     dailyGoalTotal: 30,
   };
-
+ 
   useEffect(() => {
     gsap.fromTo(
       '.continue-card',
@@ -33,7 +34,7 @@ const DashFirstSection = () => {
       { opacity: 1, y: 0, duration: 0.8, stagger: 0.2, ease: 'power3.out' }
     );
   }, []);
-
+ 
   return (
     <div className="bg-[var(--main-bg)] text-[var(--white-smoke)]">
       <div className="container mx-auto px-4 max-w-7xl py-12 lg:py-8 sm:py-10">
@@ -83,9 +84,9 @@ const DashFirstSection = () => {
                   </Link>
                 ))}
               </div>
-
+ 
           </div>
-
+ 
           {/* Progress Section */}
          <div className="relative bg-[var(--dark-charcoal)] p-6 rounded-lg shadow-[0_0_15px_var(--blue-glow)] border border-[var(--dark-charcoal)]">
             <div className="flex items-center justify-between mb-4">
@@ -94,12 +95,12 @@ const DashFirstSection = () => {
               </h2>
               <FaTrophy className="text-yellow-400 text-2xl drop-shadow-[0_0_8px_gold]" />
             </div>
-            
+           
             <div className="flex flex-col items-center space-y-4">
          <div className="flex items-center justify-center gap-4 bg-[var(--dark-charcoal)]/60   shadow-[0_0_12px_var(--purple-glow)] w-full">
-            <div className="flex items-center gap-3 ">
-                <div className="p-2 rounded-full bg-[#22cb90] inline-flex items-center justify-center">
-                  <FaBolt className="text-2xl text-[var(--neon-purple)] drop-shadow-[0_0_6px_var(--purple-glow)]" />
+            <div className="flex items-center gap-0 ">
+                <div className="p-2 rounded-full  inline-flex items-center justify-center">
+                  <FaUserCircle className="text-4xl text-[var(--neon-purple)] drop-shadow-[0_0_6px_var(--purple-glow)]" />
                 </div>
                 <p className="text-lg font-bold text-[var(--white-smoke)]">
                   Current Level <span className="text-[var(--neon-purple)]">{userProgress.level}</span>
@@ -152,5 +153,5 @@ const DashFirstSection = () => {
     </div>
   );
 };
-
+ 
 export default DashFirstSection;

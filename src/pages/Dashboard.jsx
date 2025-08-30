@@ -2,6 +2,13 @@ import React from 'react';
 import DashFirstSection from '../components/Dashboard/DashFirstSection';
 import DashboardProgressWidget from '../components/Dashboard/DashboardProgressWidget';
 import Dashboard3Section from '../components/Dashboard/Dashboard3Section';
+import QuickActions from '../components/Dashboard/QuickActions';
+
+ 
+ 
+ 
+//change the dummydata into json file access to the page also in the commmponents and link it peropelry
+ 
 const Dashboard = () => {
   return (
     <div className="bg-[var(--main-bg)] min-h-screen text-[var(--white-smoke)]">
@@ -11,12 +18,12 @@ const Dashboard = () => {
         </h1>
       </div>
       <DashFirstSection />
-      
        <DashboardProgressWidget />
        <Dashboard3Section />
-      
+       <QuickActions />
+     
     </div>
   );
 };
-
+ 
 export default Dashboard;
