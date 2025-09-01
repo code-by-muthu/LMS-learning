@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FaCalendarAlt, FaClock, FaTrophy } from 'react-icons/fa';
+import { CalendarContext } from '../../context/CalendarContext';
+import { Link } from 'react-router-dom';
 
 const Dashboard3Section = () => {
-  // Today's Schedule Data
-  const schedule = [
-    { time: '10:00 AM', title: 'JavaScript Advanced Concepts', type: 'Live Class' },
-    { time: '2:00 PM', title: 'React Assignment Due', type: 'Assignment' },
-    { time: '4:00 PM', title: 'Data Structures Quiz', type: 'Quiz' },
-  ];
+  const { progressData } = useContext(CalendarContext);
+  const today = new Date();
+  const todayKey = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+  const todaySchedule = progressData.events[todayKey] || [];
 
-  // Study Plan Data
+  // Study Plan Data (unchanged)
   const plan = {
     current: 'Continue AI Course - Neural Networks Explained (75 min)',
     goals: [
@@ -18,7 +18,7 @@ const Dashboard3Section = () => {
     ],
   };
 
-  // Achievements Data
+  // Achievements Data (unchanged)
   const achievements = [
     { title: 'Fast Learner', description: 'Complete 3 lessons in a single day', unlocked: true },
     { title: 'Knowledge Seeker', description: 'Enroll in 5 different courses', unlocked: true },
@@ -34,17 +34,21 @@ const Dashboard3Section = () => {
           <FaCalendarAlt className="text-[var(--neon-purple)] text-lg" />
         </div>
         <ul className="space-y-4">
-          {schedule.map((item, index) => (
-            <li key={index} className="flex items-center gap-3 text-base">
-              <span className="text-[var(--neon-purple)] font-semibold">{item.time}</span>
-              <span className="flex-1 text-[var(--white-smoke)]">{item.title}</span>
-              <span className="text-xs bg-[var(--dark-charcoal)]/50 px-2 py-1 rounded-full">{item.type}</span>
-            </li>
-          ))}
+          {todaySchedule.length > 0 ? (
+            todaySchedule.map((item, index) => (
+              <li key={index} className="flex items-center gap-3 text-base">
+                <span className="text-[var(--neon-purple)] font-semibold">{item.startTime || 'N/A'}</span>
+                <span className="flex-1 text-[var(--white-smoke)]">{item.title}</span>
+                <span className="text-xs bg-[var(--dark-charcoal)]/50 px-2 py-1 rounded-full">{item.type}</span>
+              </li>
+            ))
+          ) : (
+            <li className="text-[var(--white-smoke)] text-base">No events scheduled for today.</li>
+          )}
         </ul>
-        <button className="mt-6 w-full bg-[var(--neon-pink)] text-[var(--dark-charcoal)] rounded-lg py-2 text-base font-semibold hover:bg-[var(--aqua-glow)] hover:text-[var(--dark-charcoal)] transition-all duration-300">
+        <Link to="/calendar" className="mt-6 w-full bg-[var(--neon-pink)] text-[var(--dark-charcoal)] rounded-lg py-2 text-base font-semibold hover:bg-[var(--aqua-glow)] hover:text-[var(--dark-charcoal)] transition-all duration-300">
           View Full Schedule
-        </button>
+        </Link>
       </div>
 
       {/* Study Plan */}

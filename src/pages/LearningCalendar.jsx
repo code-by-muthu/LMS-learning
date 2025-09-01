@@ -1,8 +1,8 @@
-
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FaChevronLeft, FaChevronRight, FaCalendarDay, FaCheckCircle, FaPlus, FaTrash, FaEdit } from "react-icons/fa";
 import { gsap } from "gsap";
 import Notification from "../components/Notification"; // Adjust path as needed
+import { CalendarContext } from "../context/CalendarContext";
 
 // Calendar Header Component
 const CalendarHeader = ({ currentMonth, currentYear, onPrev, onNext, onMonthYearChange }) => {
@@ -17,7 +17,7 @@ const CalendarHeader = ({ currentMonth, currentYear, onPrev, onNext, onMonthYear
         onClick={onPrev}
         className="p-2 rounded-full hover:bg-[#9B59FF] hover:text-[#1A1A1A] transition-all duration-300 shadow-[0_0_8px_rgba(255,0,255,0.4)]"
       >
-        <FaChevronLeft />
+        <FaChevronLeft className="text-[#00FFFF]" />
       </button>
       <div className="flex items-center gap-3">
         <h2 className="text-xl font-bold text-[#FF00FF] [text-shadow:0_0_12px_rgba(255,0,255,0.4)]">
@@ -28,14 +28,14 @@ const CalendarHeader = ({ currentMonth, currentYear, onPrev, onNext, onMonthYear
           value={`${currentYear}-${String(currentMonth + 1).padStart(2, "0")}`}
           onChange={handleMonthYearChange}
           min={`${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, "0")}`}
-          className="p-1 bg-[#0F0F1A] border border-[#9B59FF] rounded-lg text-[#F5F5F5] text-sm focus:outline-none focus:shadow-[0_0_8px_rgba(255,0,255,0.4)] hover:bg-[rgba(155,89,255,0.2)]"
+          className="p-1 bg-[#0F0F1A] border border-[#9B59FF] rounded-lg text-[#F5F5F5] text-sm focus:outline-none focus:shadow-[0_0_8px_rgba(255,0,255,0.4)] hover:bg-[rgba(155,89,255,0.2)] month-picker"
         />
       </div>
       <button
         onClick={onNext}
         className="p-2 rounded-full hover:bg-[#9B59FF] hover:text-[#1A1A1A] transition-all duration-300 shadow-[0_0_8px_rgba(255,0,255,0.4)]"
       >
-        <FaChevronRight />
+        <FaChevronRight className="text-[#00FFFF]" />
       </button>
     </div>
   );
@@ -120,7 +120,7 @@ const EventModal = ({ show, selectedDay, currentMonth, currentYear, modalMode, s
     }
     const date = new Date(newEvent.date);
     const today = new Date();
-    today.setHours(0, 0, 0, 0); // Normalize to start of day
+    today.setHours(0, 0, 0, 0);
     if (date < today) {
       setNotification({ message: "Cannot schedule events in the past", type: "error" });
       return;
@@ -293,6 +293,7 @@ const EventModal = ({ show, selectedDay, currentMonth, currentYear, modalMode, s
 
 // Main Learning Calendar Component
 const LearningCalendar = () => {
+  const { progressData, setProgressData } = useContext(CalendarContext);
   const today = new Date();
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
   const [currentYear, setCurrentYear] = useState(today.getFullYear());
@@ -308,17 +309,6 @@ const LearningCalendar = () => {
     description: ""
   });
   const [notification, setNotification] = useState({ message: "", type: "success" });
-  const [progressData, setProgressData] = useState({
-    streakDays: [3, 4, 5, 10, 15, 20, 21],
-    events: {
-      "2025-08-03": [{ title: "React Lesson", type: "reminder", date: "2025-08-03", startTime: "10:00", endTime: "", description: "" }],
-      "2025-08-05": [{ title: "JavaScript Quiz", type: "quiz", date: "2025-08-05", startTime: "14:00", endTime: "15:00", description: "Chapter 3 quiz" }],
-      "2025-08-15": [
-        { title: "AI Course Module", type: "assignment", date: "2025-08-15", startTime: "", endTime: "", description: "Submit by EOD" },
-        { title: "Assignment Due", type: "reminder", date: "2025-08-15", startTime: "17:00", endTime: "", description: "" }
-      ]
-    }
-  });
 
   const eventTypes = {
     reminder: { color: "#00FFFF", label: "Reminder" },
@@ -421,7 +411,7 @@ const LearningCalendar = () => {
           onClick={() => {
             setCurrentMonth(today.getMonth());
             setCurrentYear(today.getFullYear());
-            setSelectedDay(null); // Reset selected day
+            setSelectedDay(null);
           }}
           className="flex items-center gap-2 px-3 py-2 bg-[#1A1A1A] border border-[#9B59FF] rounded-full hover:bg-[#9B59FF] hover:text-[#1A1A1A] text-sm"
         >
@@ -429,7 +419,7 @@ const LearningCalendar = () => {
         </button>
         <button
           onClick={() => {
-            setSelectedDay(null); // Reset to allow editable date
+            setSelectedDay(null);
             setModalMode("add");
             setNewEvent({
               title: "",

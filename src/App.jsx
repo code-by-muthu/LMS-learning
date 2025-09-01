@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { CalendarProvider } from './context/CalendarContext';
 import Navbar from './navigation/Navbar';
 import Home from './pages/Home';
 import ProfilePage from './pages/ProfilePage';
@@ -19,46 +20,49 @@ import CertificatePage from './pages/CertificatePage';
 import Wishlist from './pages/Wishlist';
 import Dashboard from './pages/Dashboard';
 import LearningCalendar from './pages/LearningCalendar';
-
+import SupportPage from './pages/SupportPage';
+import Settings from './pages/Settings';
 import './App.css';
 
 function App() {
   return (
     <Router>
-      <div className="flex flex-col min-h-screen">
-        <Navbar />
-        <main className="flex-grow">
-          <Routes>
-            {/* Core Routes */}
-            <Route path="/" element={<Home />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/signin" element={<SignInPage />} />
-            <Route path="/signup" element={<SignUpPage />} />
-            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-            <Route path="/change-password" element={<ChangePasswordPage />} />
-            {/* Course Routes */}
-            <Route path="/courses" element={<AllCourses />} />
-            <Route path="/categories" element={<Categories />} />
-            <Route path="/category/:categoryName" element={<CategoryCourses />} />
-            <Route path="/course/:id" element={<CoursePage />} />
-            <Route path="/course/:id/learn" element={<LearningLayout />} />
-            {/* Assessment and Certificate Routes */}
-            <Route path="/assessment/:id" element={<Assessment />} />
-            <Route path="/certificate/:courseId" element={<CertificatePage />} />
-            {/* Review Route */}
-            <Route path="/review/:id" element={<ReviewDetailsPage />} />
-            {/* Pricing Route */}
-            <Route path="/pricing" element={<PricingPage />} />
-
-            {/* Wishlist Route */}
-            <Route path="/wishlist" element={<Wishlist />} />
-
-            {/* sidebar  Route */}
-            <Route path="/calendar" element={<LearningCalendar />} />
-          </Routes>
-        </main>
-      </div>
+      <CalendarProvider>
+        <div className="flex flex-col min-h-screen">
+          <Navbar />
+          <main className="flex-grow">
+            <Routes>
+              {/* Core Routes */}
+              <Route path="/" element={<Home />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/signin" element={<SignInPage />} />
+              <Route path="/signup" element={<SignUpPage />} />
+              <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+              <Route path="/change-password" element={<ChangePasswordPage />} />
+              {/* Course Routes */}
+              <Route path="/courses" element={<AllCourses />} />
+              <Route path="/categories" element={<Categories />} />
+              <Route path="/category/:categoryName" element={<CategoryCourses />} />
+              <Route path="/course/:id" element={<CoursePage />} />
+              <Route path="/course/:id/learn" element={<LearningLayout />} />
+              {/* Assessment and Certificate Routes */}
+              <Route path="/assessment/:id" element={<Assessment />} />
+              <Route path="/certificate/:courseId" element={<CertificatePage />} />
+              {/* Review Route */}
+              <Route path="/review/:id" element={<ReviewDetailsPage />} />
+              {/* Pricing Route */}
+              <Route path="/pricing" element={<PricingPage />} />
+              {/* Wishlist Route */}
+              <Route path="/wishlist" element={<Wishlist />} />
+              {/* Calendar Route */}
+              <Route path="/calendar" element={<LearningCalendar />} />
+              <Route path="/support" element={<SupportPage />} />
+              <Route path="/settings" element={<Settings />} />
+            </Routes>
+          </main>
+        </div>
+      </CalendarProvider>
     </Router>
   );
 }

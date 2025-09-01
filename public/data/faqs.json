@@ -1,0 +1,22 @@
+[
+  {
+    "question": "How do I access courses after the free trial?",
+    "answer": "After the 15-day free trial, subscribe via the <a href=\"/pricing\" class=\"text-[var(--neon-pink)] hover:underline\">Pricing Page</a> to access advanced courses, assessments, and certificates."
+  },
+  {
+    "question": "How can I download my certificate?",
+    "answer": "Complete a course and visit the <a href=\"/certificate/1\" class=\"text-[var(--neon-pink)] hover:underline\">Certificate Page</a> to download your certificate. Ensure you have a valid subscription."
+  },
+  {
+    "question": "Who is eligible to receive a certificate?",
+    "answer": "Users who complete all course modules and assessments with a passing score are eligible. Check your progress on the <a href=\"/profile\" class=\"text-[var(--neon-pink)] hover:underline\">Profile</a> page."
+  },
+  {
+    "question": "What should I do if my certificate isn’t downloading?",
+    "answer": "Verify course completion on the <a href=\"/profile\" class=\"text-[var(--neon-pink)] hover:underline\">Profile</a> page and ensure an active subscription. Try a different browser or contact support below."
+  },
+  {
+    "question": "How do I access documentation and tutorials?",
+    "answer": "Visit our <a href=\"https://x.ai/api\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-[var(--neon-pink)] hover:underline\">Developer API</a> for technical docs or check the <a href=\"/courses\" class=\"text-[var(--neon-pink)] hover:underline\">Courses</a> page for tutorials."
+  }
+]

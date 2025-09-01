@@ -30,36 +30,61 @@
   --soft-violet: #a64dff;
 }
 @keyframes float {
-  0% { transform: translateY(0) scale(1); opacity: 0.5; }
-  50% { transform: translateY(-20px) scale(1.2); opacity: 0.8; }
-  100% { transform: translateY(0) scale(1); opacity: 0.5; }
-}
-.animate-float { animation: float 6s infinite ease-in-out; }
-.animation-delay-1000 { animation-delay: 1s; }
-.animation-delay-2000 { animation-delay: 2s; }
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animation-delay-1000 {
+  animation-delay: 1s;
+}
+
+/* Style for month picker input */
+.month-picker {
+  /* Ensure text and border match theme */
+  color: var(--white-smoke);
+  background-color: var(--main-bg);
+  border: 1px solid var(--neon-purple);
+}
+
+/* Style the calendar picker icon (WebKit browsers) */
+.month-picker::-webkit-calendar-picker-indicator {
+  filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(230deg) brightness(118%) contrast(119%); /* Approximates #9B59FF */
+}
+
+/* Attempt to style the dropdown (limited support) */
+.month-picker::-webkit-datetime-edit {
+  color: var(--white-smoke);
+}
+
+.month-picker::-webkit-datetime-edit-month-field,
+.month-picker::-webkit-datetime-edit-year-field {
+  background-color: var(--main-bg);
+  color: var(--white-smoke);
+}
+
+/* Fallback for non-WebKit browsers */
+.month-picker:focus {
+  outline: none;
+  box-shadow: 0 0 8px rgba(255, 0, 255, 0.4);
+}
+
+/* Note: Dropdown background styling is limited; below is a fallback */
+@supports (-webkit-appearance: none) {
+  .month-picker {
+    /* Ensure consistent appearance */
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%239B59FF"><path d="M4 6l4 4 4-4H4z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    padding-right: 24px;
   }
-  to {
-    transform: rotate(360deg);
-  }
 }
-
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
