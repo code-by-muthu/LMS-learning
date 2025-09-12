@@ -21,6 +21,7 @@ import Wishlist from './pages/Wishlist';
 import Dashboard from './pages/Dashboard';
 import LearningCalendar from './pages/LearningCalendar';
 import SupportPage from './pages/SupportPage';
+import ResourcesPage from './pages/ResourcesPage'; // Import the ResourcesPage component
 import Settings from './pages/Settings';
 import './App.css';
 
@@ -59,6 +60,7 @@ function App() {
               <Route path="/calendar" element={<LearningCalendar />} />
               <Route path="/support" element={<SupportPage />} />
               <Route path="/settings" element={<Settings />} />
+              <Route path="/resources" element={<ResourcesPage />} />
             </Routes>
           </main>
         </div>

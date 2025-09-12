@@ -1,0 +1,122 @@
+{
+  "freeResources": [
+    {
+      "id": "fr1",
+      "title": "Introduction to Machine Learning",
+      "description": "A comprehensive guide to machine learning concepts and algorithms",
+      "category": "AI & Machine Learning",
+      "size": "2.4 MB",
+      "date": "Sep 15, 2023",
+      "type": "document",
+      "url": "/resources/intro-ml.pdf"
+    },
+    {
+      "id": "fr2",
+      "title": "Web Development Best Practices",
+      "description": "Learn the latest best practices for modern web development",
+      "category": "Web Development",
+      "size": "1.8 MB",
+      "date": "Aug 22, 2023",
+      "type": "document",
+      "url": "/resources/web-dev.pdf"
+    },
+    {
+      "id": "fr3",
+      "title": "Data Science with Python - Tutorial",
+      "description": "Step-by-step tutorial on using Python for data analysis",
+      "category": "Data Science",
+      "duration": "45 min",
+      "date": "Jul 30, 2023",
+      "type": "video",
+      "url": "/resources/data-science-video.mp4"
+    },
+    {
+      "id": "fr4",
+      "title": "UX Design Principles Explained",
+      "description": "Key principles of user experience design with practical examples",
+      "category": "Design",
+      "duration": "32 min",
+      "date": "Sep 5, 2023",
+      "type": "video",
+      "url": "/resources/ux-design-video.mp4"
+    },
+    {
+      "id": "fr5",
+      "title": "Introduction to Algorithms",
+      "description": "Classic book on algorithms and data structures",
+      "category": "Computer Science",
+      "pages": "1312",
+      "date": "Jun 18, 2023",
+      "type": "book",
+      "url": "/resources/algorithms-book.pdf"
+    }
+  ],
+  "premiumResources": {
+    "common": [
+      {
+        "id": "pr1",
+        "title": "Advanced Debugging Techniques",
+        "description": "In-depth guide to debugging complex errors",
+        "category": "General",
+        "size": "3.2 MB",
+        "date": "Oct 1, 2023",
+        "type": "document",
+        "url": "/premium/debugging.pdf"
+      },
+      {
+        "id": "pr2",
+        "title": "Error Handling Best Practices Video",
+        "description": "Video tutorial on advanced error handling",
+        "category": "General",
+        "duration": "50 min",
+        "date": "Sep 20, 2023",
+        "type": "video",
+        "url": "/premium/error-handling.mp4"
+      }
+    ],
+    "1": [
+      {
+        "id": "pr3",
+        "title": "Python Error Codes Reference",
+        "description": "Comprehensive reference for Python-specific errors",
+        "category": "Python",
+        "size": "1.5 MB",
+        "date": "Aug 10, 2023",
+        "type": "document",
+        "url": "/premium/python-errors.pdf"
+      },
+      {
+        "id": "pr4",
+        "title": "Python Debugging Tutorial Video",
+        "description": "Step-by-step video on debugging Python code",
+        "category": "Python",
+        "duration": "40 min",
+        "date": "Jul 15, 2023",
+        "type": "video",
+        "url": "/premium/python-debug.mp4"
+      }
+    ],
+    "ai101": [
+      {
+        "id": "pr5",
+        "title": "AI Model Training Guide",
+        "description": "Guide to training AI models and common errors",
+        "category": "AI",
+        "size": "2.8 MB",
+        "date": "Sep 1, 2023",
+        "type": "document",
+        "url": "/premium/ai-training.pdf"
+      },
+      {
+        "id": "pr6",
+        "title": "AI Error Analysis Video",
+        "description": "Video on analyzing errors in AI systems",
+        "category": "AI",
+        "duration": "35 min",
+        "date": "Aug 5, 2023",
+        "type": "video",
+        "url": "/premium/ai-errors.mp4"
+      }
+    ]
+  }
+}
