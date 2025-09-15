@@ -25,6 +25,7 @@ import ResourcesPage from './pages/ResourcesPage'; // Import the ResourcesPage c
 import Settings from './pages/Settings';
 import './App.css';
 import NotificationsPage from './pages/NotificationsPage';
+import CommunityPage from './pages/CommunityPage';
 
 function App() {
   return (
@@ -63,7 +64,7 @@ function App() {
               <Route path="/settings" element={<Settings />} />
               <Route path="/resources" element={<ResourcesPage />} />
               <Route path="/notifications" element={<NotificationsPage />} />
-
+              <Route path="/community" element={<CommunityPage />} />
             </Routes>
           </main>
         </div>
