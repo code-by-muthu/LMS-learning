@@ -24,6 +24,7 @@ import SupportPage from './pages/SupportPage';
 import ResourcesPage from './pages/ResourcesPage'; // Import the ResourcesPage component
 import Settings from './pages/Settings';
 import './App.css';
+import NotificationsPage from './pages/NotificationsPage';
 
 function App() {
   return (
@@ -61,6 +62,8 @@ function App() {
               <Route path="/support" element={<SupportPage />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/resources" element={<ResourcesPage />} />
+              <Route path="/notifications" element={<NotificationsPage />} />
+
             </Routes>
           </main>
         </div>
