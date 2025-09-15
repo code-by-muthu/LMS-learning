@@ -47,7 +47,7 @@ const Categories = () => {
   return (
     <div className="bg-[var(--main-bg)] min-h-screen text-[var(--white-smoke)]">
       {/* Hero Section */}
-      <section className="relative py-8 sm:py-12 lg:py-16 overflow-hidden">
+      <section className="relative py-8 sm:py-12 lg:py-18 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-[var(--neon-pink)]/20 via-[var(--electric-blue)]/20 to-[var(--acid-green)]/20 animate-pulse"></div>
         <div className="absolute inset-0 backdrop-blur-[2px]"></div>
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl text-center">
@@ -71,7 +71,7 @@ const Categories = () => {
       </section>
 
       {/* Courses Section */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-[var(--main-bg)]">
+      <section className="py-8 sm:py-16 lg:py-8 bg-[var(--main-bg)]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[var(--electric-blue)] [text-shadow:0_0_10px_var(--blue-glow)] mb-8 sm:mb-12 text-center">
             Courses

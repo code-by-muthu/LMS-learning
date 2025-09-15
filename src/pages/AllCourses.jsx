@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { gsap } from 'gsap';
 import { Link } from 'react-router-dom';
+import { FaBook, FaUsers, FaTrophy } from 'react-icons/fa';
 import CourseCard from '../components/Home/CourseCard';
 
 const AllCourses = () => {
@@ -57,6 +58,11 @@ const AllCourses = () => {
         { opacity: 1, x: 0, duration: 0.6, delay: 0.2, ease: 'power2.out' }
       );
       gsap.fromTo(
+        hero.querySelectorAll('.stat-card'),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.6, delay: 0.3, stagger: 0.1, ease: 'power2.out' }
+      );
+      gsap.fromTo(
         hero.querySelector('a'),
         { opacity: 0, scale: 0.9 },
         { 
@@ -94,18 +100,35 @@ const AllCourses = () => {
   return (
     <div className="bg-[var(--main-bg)] min-h-screen text-[var(--white-smoke)]">
       {/* Hero Section */}
-      <section ref={heroRef} className="relative py-10 sm:py-14 lg:py-18 overflow-hidden">
+      <section ref={heroRef} className="relative py-10 sm:py-14 lg:py-10 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-[var(--neon-purple)]/25 via-[var(--electric-blue)]/35 to-[var(--acid-green)]/25 animate-pulse"></div>
         <div className="absolute inset-0 backdrop-blur-[2px]"></div>
         <div className="absolute top-12 left-12 w-20 h-20 bg-[var(--neon-pink)] rounded-full blur-[35px] opacity-25 animate-float"></div>
         <div className="absolute bottom-12 right-12 w-28 h-28 bg-[var(--electric-blue)] rounded-full blur-[45px] opacity-25 animate-float animation-delay-1000"></div>
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl text-center">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-[var(--white-smoke)] [text-shadow:0_0_15px_var(--neon-purple)] mb-3 sm:mb-4 lg:mb-5">
-            Elevate Your Coding Journey
+            Expand Your Knowledge
           </h1>
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-[var(--white-smoke)] opacity-85 max-w-md mx-auto mb-4 sm:mb-5">
-            Dive into <span className="text-[var(--neon-pink)] font-semibold">world-class courses</span> to master new skills.
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-[var(--white-smoke)] opacity-85 max-w-2xl mx-auto mb-6">
+            Choose from our extensive library of courses taught by industry experts and enhance your skills.
           </p>
+          <div className="flex flex-wrap justify-center gap-4 mb-8">
+            <div className="stat-card bg-[var(--dark-charcoal)]/50 backdrop-blur-md p-4 rounded-lg shadow-[0_0_10px_var(--blue-glow)] text-center min-w-[150px]">
+              <FaBook className="text-[var(--electric-blue)] text-3xl mx-auto mb-2" />
+              <div className="text-2xl font-bold text-[var(--white-smoke)]">200+</div>
+              <div className="text-sm text-[var(--white-smoke)] opacity-80">Total Courses</div>
+            </div>
+            <div className="stat-card bg-[var(--dark-charcoal)]/50 backdrop-blur-md p-4 rounded-lg shadow-[0_0_10px_var(--green-glow)] text-center min-w-[150px]">
+              <FaUsers className="text-[var(--acid-green)] text-3xl mx-auto mb-2" />
+              <div className="text-2xl font-bold text-[var(--white-smoke)]">50K+</div>
+              <div className="text-sm text-[var(--white-smoke)] opacity-80">Active Learners</div>
+            </div>
+            <div className="stat-card bg-[var(--dark-charcoal)]/50 backdrop-blur-md p-4 rounded-lg shadow-[0_0_10px_var(--yellow-glow)] text-center min-w-[150px]">
+              <FaTrophy className="text-[var(--cyber-yellow)] text-3xl mx-auto mb-2" />
+              <div className="text-2xl font-bold text-[var(--white-smoke)]">95%</div>
+              <div className="text-sm text-[var(--white-smoke)] opacity-80">Success Rate</div>
+            </div>
+          </div>
           <Link
             to="/categories"
             className="inline-block px-5 sm:px-6 py-2 sm:py-2.5 bg-gradient-to-r from-[var(--neon-pink)] to-[var(--aqua-glow)] text-[var(--dark-charcoal)] rounded-lg font-semibold text-sm sm:text-base shadow-[0_0_12px_var(--pink-glow)] hover:shadow-[0_0_20px_var(--blue-glow)] transition-all duration-300"
@@ -116,9 +139,9 @@ const AllCourses = () => {
       </section>
 
       {/* Popular Courses Section */}
-      <section className="py-12 sm:py-16 bg-[var(--main-bg)]">
+      <section className="py-12 sm:py-8 lg:py-8 bg-[var(--main-bg)]">
         <div className="container mx-auto px-4 max-w-7xl">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[var(--neon-pink)] [text-shadow:0_0_15px_var(--pink-glow)] text-center mb-8 sm:mb-12">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-[var(--neon-pink)] [text-shadow:0_0_15px_var(--pink-glow)] text-center mb-8 sm:mb-10">
             Popular Courses
           </h2>
           {error ? (

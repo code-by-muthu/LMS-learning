@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
-import { FaHeart, FaStar } from 'react-icons/fa';
+import { FaHeart, FaStar, FaClock, FaBook, FaUsers } from 'react-icons/fa';
 import Notification from '../Course/Notification';
 
 const CourseCard = ({
@@ -133,22 +133,7 @@ const CourseCard = ({
     });
   };
 
-  const renderStars = (rating) => {
-    const stars = [];
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 >= 0.5;
-
-    for (let i = 0; i < 5; i++) {
-      if (i < fullStars) {
-        stars.push(<FaStar key={i} className="star text-[var(--cyber-yellow)] text-[12px]" />);
-      } else if (i === fullStars && hasHalfStar) {
-        stars.push(<FaStar key={i} className="star text-[var(--cyber-yellow)] opacity-60 text-[12px]" />);
-      } else {
-        stars.push(<FaStar key={i} className="star text-[var(--white-smoke)] opacity-30 text-[12px]" />);
-      }
-    }
-    return stars;
-  };
+  const hasProgress = course.progress > 0;
 
   return (
     <div className="relative">
@@ -183,31 +168,40 @@ const CourseCard = ({
           )}
         </div>
         {/* Content */}
-        <div className="px-4 py-4 flex flex-col justify-between h-[200px] space-y-2">
-          <h3 className="text-base font-extrabold text-[var(--white-smoke)] line-clamp-2 [text-shadow:0_0_6px_var(--blue-glow)] leading-snug">
+        <div className={`px-4 py-4 flex flex-col justify-between h-[200px] ${hasProgress ? 'items-start' : 'items-center text-center'}`}>
+          <h3 className={`text-base font-extrabold text-[var(--white-smoke)] line-clamp-2 [text-shadow:0_0_6px_var(--blue-glow)] leading-snug ${hasProgress ? '' : 'w-full'}`}>
             {course.title}
           </h3>
-          <div className="flex items-center justify-between">
-            <p className="text-xs text-[var(--white-smoke)] opacity-80 truncate">{course.level}</p>
-            {showCreator && (
-              <p className="text-xs text-[var(--white-smoke)] font-medium truncate">By {course.creator}</p>
-            )}
+          <p className={`text-xs text-[var(--white-smoke)] opacity-80 line-clamp-2 ${hasProgress ? '' : 'w-full'}`}>
+            {course.description || 'Learn the fundamentals and key concepts.'}
+          </p>
+          <div className={`flex items-center text-xs text-[var(--white-smoke)] opacity-80 ${hasProgress ? '' : 'justify-center w-full'}`}>
+            <FaClock className="mr-1" /> {course.hours || 10} hours • <FaBook className="ml-2 mr-1" /> {course.lessons || 12} lessons
           </div>
           {showRating && (
-            <div ref={ratingRef} className="flex items-center justify-center gap-1">
-              <span className="text-sm font-bold text-[var(--cyber-yellow)]">{course.rating}</span>
-              <div className="flex items-center gap-0.5">{renderStars(course.rating)}</div>
-              <span className="text-xs text-[var(--white-smoke)] opacity-80">({course.numMembers})</span>
+            <div ref={ratingRef} className={`flex items-center gap-4 ${hasProgress ? '' : 'justify-center w-full'}`}>
+              <div className="flex items-center">
+                <FaStar className="text-[var(--cyber-yellow)] mr-1 text-sm" />
+                <span className="text-sm font-bold text-[var(--cyber-yellow)]">{course.rating}</span>
+              </div>
+              <div className="flex items-center">
+                <FaUsers className="text-[var(--white-smoke)] opacity-80 mr-1 text-sm" />
+                <span className="text-xs text-[var(--white-smoke)] opacity-80">{course.numMembers}</span>
+              </div>
             </div>
           )}
-          {showPrice && (
-            <div className="flex items-center justify-center gap-2">
-              <span className="text-base font-bold text-[var(--neon-pink)] [text-shadow:0_0_6px_var(--pink-glow)]">
-                ₹{course.discountPrice}
-              </span>
-              <span className="text-sm text-[var(--white-smoke)] opacity-80 line-through">
-                ₹{course.price}
-              </span>
+          {hasProgress && (
+            <div className="mt-2 w-full">
+              <div className="flex justify-between text-xs text-[var(--white-smoke)] mb-1">
+                <span>Progress</span>
+                <span>{course.progress || 0}%</span>
+              </div>
+              <div className="bg-[var(--white-smoke)] opacity-20 rounded-full h-1.5">
+                <div
+                  className="bg-[var(--aqua-glow)] rounded-full h-1.5"
+                  style={{ width: `${course.progress || 0}%` }}
+                ></div>
+              </div>
             </div>
           )}
         </div>

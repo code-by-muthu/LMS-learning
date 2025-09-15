@@ -1,23 +1,27 @@
 [
   {
     "id": "1",
-    "title": "Python for Everybody",
+    "title": "Introduction to Artificial Intelligence",
     "level": "Beginner",
     "img": "/images/technology.png",
     "category": "Technology & Programming",
     "creator": "John Doe",
     "rating": 4.8,
-    "numMembers": 1500,
+    "numMembers": 15420,
     "price": 5999,
     "discountPrice": 4999,
     "label": "Bestseller",
-    "points": 10
+    "points": 10,
+    "description": "Learn the fundamentals of AI, machine learning, and neural net ...",
+    "hours": 10,
+    "lessons": 12,
+    "progress": 65
   },
   {
-    "id": "2",
+   "id": "2",
     "title": "JavaScript Basics",
     "level": "Beginner",
-    "img": "/images/javascript.png",
+    "img": "/images/language.png",
     "category": "Technology & Programming",
     "creator": "Jane Smith",
     "rating": 4.6,
@@ -25,13 +29,17 @@
     "price": 4999,
     "discountPrice": 3999,
     "label": "Popular",
-    "points": 8
+    "points": 8,
+    "description": "Master the basics of JavaScript for web development.",
+    "hours": 8,
+    "lessons": 10,
+    "progress": 45
   },
   {
     "id": "3",
     "title": "React Fundamentals",
     "level": "Advanced",
-    "img": "/images/react.png",
+    "img": "/images/language.png",
     "category": "Technology & Programming",
     "creator": "Alex Johnson",
     "rating": 4.9,
@@ -39,7 +47,11 @@
     "price": 6999,
     "discountPrice": 5999,
     "label": "New",
-    "points": 12
+    "points": 12,
+    "description": "Dive into React components, state, and hooks.",
+    "hours": 12,
+    "lessons": 15,
+    "progress": 0
   },
   {
     "id": "4",
@@ -51,8 +63,12 @@
     "rating": 4.6,
     "numMembers": 800,
     "price": 7499,
-    "discountPrice": 5999
-    , "points": 10 
+    "discountPrice": 5999,
+    "points": 10,
+    "description": "Build full-stack apps with React frontend and Node.js backend.",
+    "hours": 20,
+    "lessons": 25,
+    "progress": 0
   },
   {
     "id": "5",
@@ -64,8 +80,12 @@
     "rating": 4.7,
     "numMembers": 1000,
     "price": 6499,
-    "discountPrice": 5299
-    , "points": 10 
+    "discountPrice": 5299,
+    "points": 10,
+    "description": "Explore essential data structures and algorithms using C++.",
+    "hours": 15,
+    "lessons": 18,
+    "progress": 0
   },
   {
     "id": "6",
@@ -78,8 +98,12 @@
     "numMembers": 1300,
     "price": 6999,
     "discountPrice": 5499,
-    "label": "Most Popular"
-    , "points": 10 
+    "label": "Most Popular",
+    "points": 10,
+    "description": "Learn SEO, social media, and digital strategies for business growth.",
+    "hours": 18,
+    "lessons": 22,
+    "progress": 0
   },
   {
     "id": "7",
@@ -91,8 +115,12 @@
     "rating": 4.5,
     "numMembers": 900,
     "price": 5499,
-    "discountPrice": 4499
-    , "points": 10 
+    "discountPrice": 4499,
+    "points": 10,
+    "description": "Understand basic accounting principles and financial statements.",
+    "hours": 10,
+    "lessons": 14,
+    "progress": 0
   },
   {
     "id": "8",
@@ -104,8 +132,12 @@
     "rating": 4.7,
     "numMembers": 1100,
     "price": 6499,
-    "discountPrice": 5299
-    , "points": 10 
+    "discountPrice": 5299,
+    "points": 10,
+    "description": "Step-by-step guide to starting and scaling your own business.",
+    "hours": 14,
+    "lessons": 16,
+    "progress": 0
   },
   {
     "id": "9",
