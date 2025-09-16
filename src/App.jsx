@@ -27,6 +27,9 @@ import './App.css';
 import NotificationsPage from './pages/NotificationsPage';
 import CommunityPage from './pages/CommunityPage';
 import Certificate from './pages/Certificate';
+import BlogListPage from './pages/BlogListPage';
+import BlogPostPage from './components/BlogPostPage';
+import BlogForm from './components/BlogForm';
 
 function App() {
   return (
@@ -66,6 +69,9 @@ function App() {
               <Route path="/notifications" element={<NotificationsPage />} />
               <Route path="/community" element={<CommunityPage />} />
               <Route path="/certificates" element={<Certificate />} />
+              <Route path="/blog" element={<BlogListPage />} />
+              <Route path="/blog/:postId" element={<BlogPostPage />} />
+              <Route path="/blog/new" element={<BlogForm />} />
             </Routes>
           </main>
         </div>
