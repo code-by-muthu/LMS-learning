@@ -26,6 +26,7 @@ import Settings from './pages/Settings';
 import './App.css';
 import NotificationsPage from './pages/NotificationsPage';
 import CommunityPage from './pages/CommunityPage';
+import Certificate from './pages/Certificate';
 
 function App() {
   return (
@@ -56,15 +57,15 @@ function App() {
               <Route path="/review/:id" element={<ReviewDetailsPage />} />
               {/* Pricing Route */}
               <Route path="/pricing" element={<PricingPage />} />
-              {/* Wishlist Route */}
+              {/* muslim Route */}
               <Route path="/wishlist" element={<Wishlist />} />
-              {/* Calendar Route */}
               <Route path="/calendar" element={<LearningCalendar />} />
               <Route path="/support" element={<SupportPage />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/resources" element={<ResourcesPage />} />
               <Route path="/notifications" element={<NotificationsPage />} />
               <Route path="/community" element={<CommunityPage />} />
+              <Route path="/certificates" element={<Certificate />} />
             </Routes>
           </main>
         </div>

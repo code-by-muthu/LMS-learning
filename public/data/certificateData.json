@@ -1,11 +1,11 @@
 {
   "dummyCourse": {
     "id": "101-react-beginners",
-    "title": "123 React for Beginners",
+    "title": "React for Beginners",
     "duration": "15 hours"
   },
   "userName": "Pon Durai",
   "instructorName": "Jon Joe",
   "certificateImagePath": "/images/Certificate/Certificate_Template.png",
-  "completedOn": "25-09-2025"
+  "completedOn": "2025-09-25"
 }
